@@ -35,9 +35,7 @@ export default function ControlCenter() {
   return (
     <div className="fixed bottom-6 right-6 z-[60]">
       <button
-        className={cn(
-          'group flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-surface-900/70 text-white shadow-card backdrop-blur transition hover:border-white/30'
-        )}
+        className="group flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-surface-900/75 text-white shadow-card backdrop-blur transition hover:border-white/30"
         onClick={() => setOpen((prev) => !prev)}
         aria-label="Open Control Center"
       >
@@ -48,7 +46,7 @@ export default function ControlCenter() {
         {open && (
           <motion.div
             ref={panelRef}
-            className="glass absolute bottom-16 right-0 w-[280px] rounded-2xl border border-white/10 p-4 shadow-card"
+            className="glass absolute bottom-16 right-0 w-[300px] rounded-[1.8rem] border border-white/10 p-4 shadow-card"
             initial={{ opacity: 0, y: 10, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.98 }}
@@ -60,69 +58,68 @@ export default function ControlCenter() {
                   {locale === 'ar' ? 'مركز التحكم' : 'Control Center'}
                 </p>
                 <p className="text-xs text-muted">
-                  {locale === 'ar' ? 'الثيم واللغة' : 'Theme & language'}
+                  {locale === 'ar' ? 'الثيم واللغة' : 'Theme and language'}
                 </p>
               </div>
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/5">
+              <div className="flex h-9 w-9 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
                 <SlidersHorizontal size={14} />
               </div>
             </div>
 
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-white/60">
-                <Palette size={14} />
-                <span>{locale === 'ar' ? 'الثيمات' : 'Themes'}</span>
+            <div className="space-y-4">
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/55">
+                  <Palette size={14} />
+                  <span>{locale === 'ar' ? 'الثيمات' : 'Themes'}</span>
+                </div>
+                <div className="grid gap-2">
+                  {availableThemes.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => setTheme(item.id)}
+                      className={cn(
+                        'flex items-center gap-3 rounded-2xl border px-3 py-3 text-left text-sm transition',
+                        theme === item.id
+                          ? 'border-accent-400 bg-white/10 text-white'
+                          : 'border-white/10 text-white/70 hover:border-white/30'
+                      )}
+                    >
+                      <span className="h-8 w-8 rounded-xl" style={{ background: item.swatch }} />
+                      <span>{locale === 'ar' ? item.label.ar : item.label.en}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div className="grid gap-2">
-                {availableThemes.map((item) => (
+
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/55">
+                  <Globe2 size={14} />
+                  <span>{locale === 'ar' ? 'اللغة' : 'Language'}</span>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
                   <button
-                    key={item.id}
-                    onClick={() => setTheme(item.id)}
+                    onClick={() => setLocale('ar')}
                     className={cn(
-                      'flex items-center gap-3 rounded-xl border px-3 py-2 text-left text-sm transition',
-                      theme === item.id
+                      'rounded-2xl border px-3 py-2.5 text-sm transition',
+                      locale === 'ar'
                         ? 'border-accent-400 bg-white/10 text-white'
                         : 'border-white/10 text-white/70 hover:border-white/30'
                     )}
                   >
-                    <span
-                      className="h-8 w-8 rounded-lg"
-                      style={{ background: item.swatch }}
-                    />
-                    <span>{locale === 'ar' ? item.label.ar : item.label.en}</span>
+                    العربية
                   </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-4 space-y-3">
-              <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-white/60">
-                <Globe2 size={14} />
-                <span>{locale === 'ar' ? 'اللغة' : 'Language'}</span>
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  onClick={() => setLocale('ar')}
-                  className={cn(
-                    'rounded-xl border px-3 py-2 text-sm transition',
-                    locale === 'ar'
-                      ? 'border-accent-400 bg-white/10 text-white'
-                      : 'border-white/10 text-white/70 hover:border-white/30'
-                  )}
-                >
-                  العربية
-                </button>
-                <button
-                  onClick={() => setLocale('en')}
-                  className={cn(
-                    'rounded-xl border px-3 py-2 text-sm transition',
-                    locale === 'en'
-                      ? 'border-accent-400 bg-white/10 text-white'
-                      : 'border-white/10 text-white/70 hover:border-white/30'
-                  )}
-                >
-                  English
-                </button>
+                  <button
+                    onClick={() => setLocale('en')}
+                    className={cn(
+                      'rounded-2xl border px-3 py-2.5 text-sm transition',
+                      locale === 'en'
+                        ? 'border-accent-400 bg-white/10 text-white'
+                        : 'border-white/10 text-white/70 hover:border-white/30'
+                    )}
+                  >
+                    English
+                  </button>
+                </div>
               </div>
             </div>
           </motion.div>

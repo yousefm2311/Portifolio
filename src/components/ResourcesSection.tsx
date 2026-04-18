@@ -19,19 +19,19 @@ export default function ResourcesSection({ resources }: { resources?: LocalizedR
   const items = list.slice(0, 4);
 
   return (
-    <section className="py-16">
-      <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+    <section className="space-y-6">
+      <div className="flex flex-wrap items-end justify-between gap-4">
         <div className="space-y-2">
-          <p className="text-xs uppercase tracking-widest text-white/60">
+          <p className="text-xs uppercase tracking-[0.24em] text-white/50">
             {locale === 'ar' ? 'الموارد' : 'Resources'}
           </p>
-          <h2 className="text-2xl font-semibold">
-            {locale === 'ar' ? 'روابط ودروس مختارة' : 'Curated links & learning'}
+          <h2 className="text-3xl font-semibold tracking-tight">
+            {locale === 'ar' ? 'موارد مختارة' : 'Selected resources'}
           </h2>
           <p className="text-muted">
             {locale === 'ar'
-              ? 'كل ما تحتاجه لبناء وإطلاق منتجك بسرعة.'
-              : 'Everything you need to build and ship faster.'}
+              ? 'روابط وأدوات مفيدة تساعد على اتخاذ قرارات أسرع أثناء التنفيذ.'
+              : 'Useful links and tools that support faster decisions while building.'}
           </p>
         </div>
         <Link href="/resources" className="text-sm text-white/70 hover:text-white">
@@ -55,7 +55,7 @@ export default function ResourcesSection({ resources }: { resources?: LocalizedR
                 href={item.url}
                 target="_blank"
                 rel="noreferrer"
-                className="glass-soft rounded-2xl p-5 transition hover:-translate-y-1 hover:border-white/30"
+                className="rounded-[1.8rem] border border-white/10 bg-white/[0.03] p-5 transition hover:-translate-y-1 hover:border-white/20"
               >
                 <div className="flex items-center justify-between">
                   <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">

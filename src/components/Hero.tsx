@@ -6,8 +6,8 @@ import { useLocale } from '@/components/LocaleProvider';
 import type { LocalizedList } from '@/lib/types';
 
 const defaultBadges: LocalizedList = {
-  ar: ['واجهات متحركة', 'أنظمة تصميم', 'تجارب موبايل كاملة', 'تسليم سريع'],
-  en: ['Kinetic UI', 'Design Systems', 'Full Mobile Flows', 'Fast Shipping']
+  ar: ['منتجات موبايل', 'عرض داخل جهاز', 'واجهات واضحة', 'تنفيذ سريع'],
+  en: ['Mobile Products', 'In-device Showcase', 'Clear Interfaces', 'Fast Delivery']
 };
 
 export default function Hero({
@@ -23,34 +23,67 @@ export default function Hero({
       ? badges[locale]
       : defaultBadges[locale];
 
-  return (
-    <section className=" isolate  py-20 md:py-28">
-      <div className="pointer-events-none absolute -right-24 top-10 h-64 w-64 rounded-full bg-accent-400/20 blur-[120px]" />
-      <div className="pointer-events-none absolute -left-20 bottom-0 h-72 w-72 rounded-full bg-accent-500/15 blur-[140px]" />
+  const notes =
+    locale === 'ar'
+      ? [
+          'كل تطبيق هنا يُعرض كمنتج متكامل، لا كصور منفصلة.',
+          'الهدف هو إبراز الشغل نفسه بدل إغراق الصفحة بعناصر كثيرة.',
+          'المعاينة، التفاصيل، ودراسة الحالة كلها مترابطة وواضحة.'
+        ]
+      : [
+          'Each app is presented like a complete product, not a loose set of screenshots.',
+          'The goal is to let the work lead instead of filling the page with noise.',
+          'Preview, details, and case study are tied together into one clear flow.'
+        ];
 
-      <div className="relative z-10 grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-        <div className="space-y-6">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-xs text-white/70 backdrop-blur">
+  const metrics =
+    locale === 'ar'
+      ? [
+          { value: 'موبايل', label: 'أساس العرض' },
+          { value: 'هادئ', label: 'اتجاه بصري' },
+          { value: 'واضح', label: 'سرد المشروع' }
+        ]
+      : [
+          { value: 'Mobile', label: 'showcase focus' },
+          { value: 'Calm', label: 'visual direction' },
+          { value: 'Clear', label: 'project narrative' }
+        ];
+
+  return (
+    <section className="relative isolate py-12 md:py-16">
+      <div className="pointer-events-none absolute -left-6 top-0 h-48 w-48 rounded-full bg-accent-400/10 blur-[120px]" />
+      <div className="pointer-events-none absolute right-0 top-10 h-52 w-52 rounded-full bg-accent-500/8 blur-[140px]" />
+
+      <div className="relative z-10 grid gap-10 xl:grid-cols-[1.14fr_0.86fr]">
+        <div className="space-y-7">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/65">
             <span className="h-2 w-2 rounded-full bg-accent-400" />
-            {locale === 'ar' ? 'متاح لمشاريع جديدة' : 'Open for new projects'}
+            {locale === 'ar'
+              ? 'واجهة أخف وأهدى لعرض الشغل بشكل أفضل'
+              : 'A lighter, calmer layout built to present the work better'}
           </div>
-          <h1 className="text-4xl font-semibold leading-tight md:text-6xl tracking-tight">
-            {t('heroTitle')}
-          </h1>
-          <p className="max-w-2xl text-lg text-muted">
-            {t('heroSubtitle')}
-          </p>
+
+          <div className="space-y-4">
+            <h1 className="max-w-4xl text-4xl font-semibold leading-[1.1] tracking-tight md:text-6xl">
+              {t('heroTitle')}
+            </h1>
+            <p className="max-w-2xl text-base leading-8 text-muted md:text-lg">
+              {t('heroSubtitle')}
+            </p>
+          </div>
+
           <div className="flex flex-wrap gap-2">
-            {resolvedBadges.map((badge) => (
+            {resolvedBadges.slice(0, 4).map((badge) => (
               <span
                 key={badge}
-                className="rounded-full bg-white/5 px-3 py-1 text-xs uppercase tracking-widest text-white/70 backdrop-blur"
+                className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs uppercase tracking-[0.16em] text-white/70"
               >
                 {badge}
               </span>
             ))}
           </div>
-          <div className="flex flex-wrap gap-4">
+
+          <div className="flex flex-wrap gap-3">
             <Link href="#launcher">
               <Button>{t('openGallery')}</Button>
             </Link>
@@ -65,48 +98,39 @@ export default function Hero({
           </div>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="glass-soft glass-borderless relative overflow-hidden rounded-2xl p-4 transition hover:-translate-y-1 float-slow">
-            <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-accent-400/20 blur-2xl" />
-            <p className="text-xs uppercase tracking-widest text-white/60">
-              {locale === 'ar' ? 'التخصص' : 'Focus'}
-            </p>
-            <p className="mt-3 text-lg font-semibold">Flutter + Next.js</p>
-            <p className="mt-2 text-sm text-muted">
-              {locale === 'ar'
-                ? 'تجارب تطبيقات قوية ومقنعة'
-                : 'High-impact mobile & web builds.'}
-            </p>
-          </div>
-          <div className="glass-soft glass-borderless relative overflow-hidden rounded-2xl p-4 transition hover:-translate-y-1 float-slower">
-            <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-accent-500/20 blur-2xl" />
-            <p className="text-xs uppercase tracking-widest text-white/60">
-              {locale === 'ar' ? 'الستايل' : 'Style'}
-            </p>
-            <p className="mt-3 text-lg font-semibold">
-              {locale === 'ar' ? 'واجهات متحركة' : 'Kinetic UI'}
-            </p>
-            <p className="mt-2 text-sm text-muted">
-              {locale === 'ar'
-                ? 'واجهات تتنفس مع حركة محسوبة'
-                : 'Animated, immersive, and clean.'}
-            </p>
-          </div>
-          <div className="glass-soft glass-borderless relative overflow-hidden rounded-2xl p-4 transition hover:-translate-y-1 sm:col-span-2 glow-ring">
-            <div className="absolute -right-6 -top-6 h-32 w-32 rounded-full bg-accent-300/20 blur-2xl" />
-            <div className="flex items-center justify-between">
-              <p className="text-xs uppercase tracking-widest text-white/60">
-                {locale === 'ar' ? 'النتيجة' : 'Outcome'}
+        <div className="section-shell p-6 sm:p-7">
+          <div className="relative z-10 space-y-6">
+            <div className="space-y-2">
+              <p className="text-xs uppercase tracking-[0.22em] text-white/45">
+                {locale === 'ar' ? 'ملخص التجربة' : 'Experience summary'}
               </p>
-              <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/70">
-                {locale === 'ar' ? 'تجارب كاملة' : 'Full stories'}
-              </span>
+              <h2 className="text-2xl font-semibold tracking-tight">
+                {locale === 'ar' ? 'رئيسية أوضح ومساحة تتنفس' : 'A clearer homepage with more breathing room'}
+              </h2>
             </div>
-            <p className="mt-4 text-sm text-muted">
-              {locale === 'ar'
-                ? 'من المعاينة التفاعلية إلى دراسة الحالة، كل مشروع له قصة واضحة وواجهة متقنة.'
-                : 'From interactive previews to case studies, every project ships with a complete narrative.'}
-            </p>
+
+            <div className="grid gap-3">
+              {notes.map((note, index) => (
+                <div
+                  key={note}
+                  className="flex items-start gap-4 rounded-[1.5rem] border border-white/10 bg-black/10 px-4 py-4"
+                >
+                  <span className="mt-0.5 text-xs uppercase tracking-[0.2em] text-white/35">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <p className="text-sm leading-7 text-white/78">{note}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-3">
+              {metrics.map((item) => (
+                <div key={item.label} className="rounded-[1.4rem] border border-white/10 bg-white/5 p-4">
+                  <p className="text-lg font-semibold">{item.value}</p>
+                  <p className="mt-2 text-xs uppercase tracking-[0.18em] text-white/45">{item.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

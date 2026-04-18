@@ -1,8 +1,8 @@
 'use client';
 
+import { BookOpen, ExternalLink, FileText, PlayCircle, Wrench } from 'lucide-react';
 import { useLocale } from '@/components/LocaleProvider';
 import type { LocalizedResources } from '@/lib/types';
-import { BookOpen, ExternalLink, FileText, PlayCircle, Wrench } from 'lucide-react';
 
 const typeConfig = {
   guide: { icon: BookOpen, label: { ar: 'دليل', en: 'Guide' } },
@@ -17,27 +17,29 @@ export default function ResourcesView({ resources }: { resources?: LocalizedReso
   const list = resources?.[locale]?.filter((item) => item.title && item.url) ?? [];
 
   return (
-    <main className="mx-auto max-w-6xl space-y-10 px-4 py-16">
-      <div className="space-y-3">
-        <p className="text-xs uppercase tracking-widest text-white/60">
-          {locale === 'ar' ? 'الموارد' : 'Resources'}
-        </p>
-        <h1 className="text-3xl font-semibold">
-          {locale === 'ar' ? 'مكتبة ملفات وروابط مفيدة' : 'Curated resources and learning'}
-        </h1>
-        <p className="text-muted">
-          {locale === 'ar'
-            ? 'روابط وأدلة عملية تساعدك على إطلاق المنتج بشكل أسرع.'
-            : 'Links and guides that help you ship faster.'}
-        </p>
-      </div>
+    <main className="mx-auto max-w-6xl space-y-8 px-4 py-16">
+      <section className="p-2 sm:p-0">
+        <div className="relative z-10 space-y-3">
+          <p className="text-xs uppercase tracking-[0.24em] text-white/55">
+            {locale === 'ar' ? 'الموارد' : 'Resources'}
+          </p>
+          <h1 className="text-4xl font-semibold tracking-tight">
+            {locale === 'ar' ? 'مكتبة روابط وملفات مفيدة' : 'A cleaner library of useful links and assets'}
+          </h1>
+          <p className="max-w-3xl text-sm leading-8 text-muted">
+            {locale === 'ar'
+              ? 'مجموعة أدوات وروابط ودروس تساعد في تسريع التنفيذ واتخاذ قرارات أفضل أثناء بناء المنتج.'
+              : 'A set of links, guides, and references that support faster execution and better product decisions.'}
+          </p>
+        </div>
+      </section>
 
       {list.length === 0 ? (
-        <div className="glass-soft rounded-2xl p-6 text-sm text-muted">
-          {locale === 'ar' ? 'لا توجد موارد حالياً.' : 'No resources yet.'}
+        <div className="glass-soft rounded-[1.8rem] p-8 text-sm text-muted">
+          {locale === 'ar' ? 'لا توجد موارد مضافة حاليًا.' : 'No resources have been added yet.'}
         </div>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2">
+        <section className="grid gap-4 md:grid-cols-2">
           {list.map((item, index) => {
             const config = typeConfig[item.type] ?? typeConfig.link;
             const Icon = config.icon;
@@ -48,20 +50,20 @@ export default function ResourcesView({ resources }: { resources?: LocalizedReso
                 href={item.url}
                 target="_blank"
                 rel="noreferrer"
-                className="glass-soft rounded-2xl p-5 transition hover:-translate-y-1 hover:border-white/30"
+                className="group rounded-[1.8rem] border border-white/10 bg-white/[0.03] p-5 transition hover:-translate-y-1 hover:border-white/20"
               >
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-4">
                   <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
                     {badge}
                   </span>
-                  <Icon size={18} className="text-accent-300" />
+                  <Icon size={18} className="text-accent-300 transition group-hover:scale-110" />
                 </div>
-                <h2 className="mt-4 text-lg font-semibold">{item.title}</h2>
-                <p className="mt-2 text-sm text-muted">{item.desc}</p>
+                <h2 className="mt-5 text-xl font-semibold tracking-tight">{item.title}</h2>
+                <p className="mt-3 text-sm leading-7 text-muted">{item.desc}</p>
               </a>
             );
           })}
-        </div>
+        </section>
       )}
     </main>
   );

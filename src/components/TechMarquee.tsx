@@ -39,16 +39,25 @@ export default function TechMarquee({ items }: { items?: LocalizedList | null })
   const track = [...resolvedItems, ...resolvedItems];
 
   return (
-    <section className="marquee rounded-3xl border border-white/5 bg-surface-900/50 py-4">
-      <div className="marquee-track px-6">
-        {track.map((item, index) => (
-          <span
-            key={`${item}-${index}`}
-            className="rounded-full border border-white/5 bg-white/5 px-4 py-2 text-xs uppercase tracking-widest text-white/70"
-          >
-            {item}
-          </span>
-        ))}
+    <section className="section-shell py-5">
+      <div className="relative z-10">
+        <div className="mb-4 px-6">
+          <p className="text-xs uppercase tracking-[0.24em] text-white/45">
+            {locale === 'ar' ? 'الأدوات والتقنيات' : 'Tools and technologies'}
+          </p>
+        </div>
+        <div className="marquee">
+          <div className="marquee-track px-6">
+            {track.map((item, index) => (
+              <span
+                key={`${item}-${index}`}
+                className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.22em] text-white/70"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -40,6 +40,7 @@ export function normalizeApp(doc: any): AppDTO {
     .map((item: any) => normalizeMedia(item))
     .filter(Boolean) as MediaDTO[];
   const demoVideo = normalizeMedia(doc.demo?.videoId);
+  const content = doc.content ?? {};
 
   return {
     _id: doc._id?.toString() ?? doc.id,
@@ -78,6 +79,48 @@ export function normalizeApp(doc: any): AppDTO {
       architecture: '',
       challenges: '',
       results: ''
+    },
+    content: {
+      shortDesc: {
+        ar: content.shortDesc?.ar ?? doc.shortDesc ?? '',
+        en: content.shortDesc?.en ?? ''
+      },
+      description: {
+        ar: content.description?.ar ?? doc.description ?? '',
+        en: content.description?.en ?? ''
+      },
+      caseStudy: {
+        problem: {
+          ar: content.caseStudy?.problem?.ar ?? doc.caseStudy?.problem ?? '',
+          en: content.caseStudy?.problem?.en ?? ''
+        },
+        solution: {
+          ar: content.caseStudy?.solution?.ar ?? doc.caseStudy?.solution ?? '',
+          en: content.caseStudy?.solution?.en ?? ''
+        },
+        architecture: {
+          ar: content.caseStudy?.architecture?.ar ?? doc.caseStudy?.architecture ?? '',
+          en: content.caseStudy?.architecture?.en ?? ''
+        },
+        challenges: {
+          ar: content.caseStudy?.challenges?.ar ?? doc.caseStudy?.challenges ?? '',
+          en: content.caseStudy?.challenges?.en ?? ''
+        },
+        results: {
+          ar: content.caseStudy?.results?.ar ?? doc.caseStudy?.results ?? '',
+          en: content.caseStudy?.results?.en ?? ''
+        }
+      },
+      features: (content.features ?? doc.features ?? []).map((feature: any) => ({
+        title: {
+          ar: feature.title?.ar ?? feature.title ?? '',
+          en: feature.title?.en ?? ''
+        },
+        details: {
+          ar: feature.details?.ar ?? feature.details ?? '',
+          en: feature.details?.en ?? ''
+        }
+      }))
     },
     status: doc.status ?? 'draft',
     publishedAt: doc.publishedAt ? new Date(doc.publishedAt).toISOString() : undefined,

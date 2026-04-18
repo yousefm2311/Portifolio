@@ -8,54 +8,61 @@ export default function ServicesView({ services }: { services?: LocalizedService
   const list = services?.[locale]?.filter((item) => item.name && item.price) ?? [];
 
   return (
-    <main className="mx-auto max-w-6xl space-y-10 px-4 py-16">
-      <div className="space-y-3">
-        <p className="text-xs uppercase tracking-widest text-white/60">
-          {locale === 'ar' ? 'الخدمات' : 'Services'}
-        </p>
-        <h1 className="text-3xl font-semibold">
-          {locale === 'ar' ? 'باقات عمل مرنة حسب الاحتياج' : 'Flexible service packages'}
-        </h1>
-        <p className="text-muted">
-          {locale === 'ar'
-            ? 'اختر الباقة المناسبة أو تواصل لتفصيل عرض مخصص.'
-            : 'Pick a plan or request a custom quote.'}
-        </p>
-      </div>
+    <main className="mx-auto max-w-6xl space-y-8 px-4 py-16">
+      <section className="p-2 sm:p-0">
+        <div className="relative z-10 space-y-3">
+          <p className="text-xs uppercase tracking-[0.24em] text-white/55">
+            {locale === 'ar' ? 'الخدمات' : 'Services'}
+          </p>
+          <h1 className="text-4xl font-semibold tracking-tight">
+            {locale === 'ar' ? 'باقات عمل مرنة حسب هدف المنتج' : 'Flexible service packages built around product goals'}
+          </h1>
+          <p className="max-w-3xl text-sm leading-8 text-muted">
+            {locale === 'ar'
+              ? 'سواء كنت تحتاج MVP سريع، تحسين لتجربة حالية، أو نظام إدارة متكامل، يمكن اختيار باقة مناسبة أو طلب عرض مخصص.'
+              : 'Whether you need a fast MVP, a stronger current experience, or a complete admin system, you can pick a package or request a custom scope.'}
+          </p>
+        </div>
+      </section>
 
       {list.length === 0 ? (
-        <div className="glass-soft rounded-2xl p-6 text-sm text-muted">
-          {locale === 'ar' ? 'لا توجد باقات حالياً.' : 'No service plans yet.'}
+        <div className="glass-soft rounded-[1.8rem] p-8 text-sm text-muted">
+          {locale === 'ar' ? 'لا توجد باقات مضافة حاليًا.' : 'No service plans have been added yet.'}
         </div>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {list.map((plan, index) => (
             <div
               key={`${plan.name}-${index}`}
-              className={`glass-soft rounded-2xl p-6 space-y-4 transition hover:-translate-y-1 ${
-                plan.highlight ? 'border border-accent-400/40 shadow-glow' : 'border border-white/10'
+              className={`rounded-[1.8rem] border p-6 transition hover:-translate-y-1 ${
+                plan.highlight
+                  ? 'border-accent-400/28 bg-white/[0.04] shadow-[0_12px_30px_rgba(43,197,255,0.08)]'
+                  : 'border-white/10 bg-white/[0.03]'
               }`}
             >
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">{plan.name}</h2>
+              <div className="flex items-center justify-between gap-4">
+                <h2 className="text-xl font-semibold tracking-tight">{plan.name}</h2>
                 {plan.highlight && (
                   <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
                     {locale === 'ar' ? 'مميز' : 'Popular'}
                   </span>
                 )}
               </div>
-              <div className="text-2xl font-semibold text-gradient">{plan.price}</div>
-              <p className="text-sm text-muted">{plan.description}</p>
-              <div className="space-y-2 text-sm text-white/70">
+              <div className="mt-5 text-3xl font-semibold text-gradient">{plan.price}</div>
+              <p className="mt-3 text-sm leading-7 text-muted">{plan.description}</p>
+              <div className="mt-5 space-y-2 text-sm text-white/75">
                 {(plan.features ?? []).map((feature, featureIndex) => (
-                  <div key={`${plan.name}-feature-${featureIndex}`} className="rounded-xl bg-white/5 px-3 py-2">
+                  <div
+                    key={`${plan.name}-feature-${featureIndex}`}
+                    className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3"
+                  >
                     {feature}
                   </div>
                 ))}
               </div>
             </div>
           ))}
-        </div>
+        </section>
       )}
     </main>
   );

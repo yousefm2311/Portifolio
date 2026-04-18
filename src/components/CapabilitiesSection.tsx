@@ -1,47 +1,47 @@
 'use client';
 
-import { useLocale } from '@/components/LocaleProvider';
 import Image from 'next/image';
 import { Layers, Rocket, ShieldCheck, Sparkles, Code2, Zap, Layout, Workflow } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { useLocale } from '@/components/LocaleProvider';
 import type { LocalizedSectionIntro, LocalizedNotes, LocalizedCardList } from '@/lib/types';
 
 const defaultIntro: LocalizedSectionIntro = {
   ar: {
     eyebrow: 'المزايا',
-    title: 'منصة متكاملة لبناء منتجات رقمية',
-    subtitle: 'أغطي دورة المنتج بالكامل من الفكرة إلى الإطلاق، مع تجربة قوية وواجهة مُتقنة.'
+    title: 'من الفكرة إلى منتج واضح وقابل للإطلاق',
+    subtitle: 'أغطي دورة المنتج كاملة، مع تركيز على تقديم واجهات قوية، منطق نظيف، وتجربة تظهر الاحتراف بوضوح.'
   },
   en: {
     eyebrow: 'Capabilities',
-    title: 'A complete platform for digital products',
-    subtitle: 'I cover the full product cycle from concept to launch with premium UX and execution.'
+    title: 'From concept to a clear, launch-ready product',
+    subtitle: 'I cover the full product cycle with stronger interfaces, cleaner logic, and a presentation that feels deliberate.'
   }
 };
 
 const defaultNotes: LocalizedNotes = {
   ar: {
-    noteA: 'تخطيط واضح + تصميم عالي + تنفيذ فعلي = نتائج ملموسة.',
-    noteB: 'تركيز على الأداء، التفاصيل، وقابلية التوسع.'
+    noteA: 'كل جزء في المنتج يجب أن يخدم القصة، لا أن يزيد الزحمة.',
+    noteB: 'الاهتمام بالتفاصيل الصغيرة هو ما يصنع الانطباع الكبير.'
   },
   en: {
-    noteA: 'Clear planning + high-end design + real engineering = tangible results.',
-    noteB: 'Focused on performance, details, and scalability.'
+    noteA: 'Every part of the product should support the story, not add noise.',
+    noteB: 'Small details are usually what create the strongest impression.'
   }
 };
 
 const defaultItems: LocalizedCardList = {
   ar: [
-    { title: 'استراتيجية المنتج', desc: 'تحويل الفكرة إلى خطة إطلاق واضحة وقابلة للتنفيذ.' },
-    { title: 'تجربة UI متحركة', desc: 'واجهات تفاعلية مصقولة بحركة محسوبة.' },
-    { title: 'هندسة قابلة للتوسع', desc: 'بنية نظيفة تتحمل النمو وتبني الثقة.' },
-    { title: 'إطلاق سريع', desc: 'تنفيذ منظم مع تسليمات واضحة وسريعة.' }
+    { title: 'استراتيجية المنتج', desc: 'تحويل الفكرة إلى خطة تنفيذ واضحة، بدل البناء العشوائي.' },
+    { title: 'واجهات حية', desc: 'تصميم وتجربة استخدام تشعر بالحياة بدون مبالغة أو ازدحام.' },
+    { title: 'هندسة قابلة للتوسع', desc: 'بنية مرتبة تستوعب النمو والتعديل والصيانة.' },
+    { title: 'إطلاق أسرع', desc: 'تقليل التشتت وتركيز الجهد على ما يهم المنتج فعلاً.' }
   ],
   en: [
-    { title: 'Product Strategy', desc: 'Turn ideas into a launch-ready execution plan.' },
-    { title: 'Kinetic UI', desc: 'Polished interactive interfaces with intentional motion.' },
-    { title: 'Scalable Engineering', desc: 'Clean architecture built for growth and trust.' },
-    { title: 'Fast Launch', desc: 'Structured delivery with clear, fast milestones.' }
+    { title: 'Product strategy', desc: 'Turn the idea into a clear execution plan instead of building blindly.' },
+    { title: 'Living interfaces', desc: 'Design and UX that feel alive without becoming noisy.' },
+    { title: 'Scalable engineering', desc: 'A cleaner foundation that handles growth and iteration well.' },
+    { title: 'Faster launch', desc: 'Less distraction, more focus on what actually moves the product forward.' }
   ]
 };
 
@@ -75,17 +75,17 @@ export default function CapabilitiesSection({
       : defaultItems[locale];
 
   return (
-    <section className="relative py-20">
-      <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] items-start">
+    <section className="section-shell p-6 py-10 sm:p-8 sm:py-12">
+      <div className="relative z-10 grid gap-8 lg:grid-cols-[0.88fr_1.12fr]">
         <div className="space-y-4">
-          <p className="text-xs uppercase tracking-widest text-white/60">{resolvedIntro.eyebrow}</p>
-          <h2 className="text-3xl font-semibold">{resolvedIntro.title}</h2>
-          <p className="text-muted">{resolvedIntro.subtitle}</p>
+          <p className="text-xs uppercase tracking-[0.24em] text-white/55">{resolvedIntro.eyebrow}</p>
+          <h2 className="text-3xl font-semibold tracking-tight">{resolvedIntro.title}</h2>
+          <p className="text-sm leading-8 text-muted">{resolvedIntro.subtitle}</p>
           <div className="grid gap-3">
-            <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/70">
+            <div className="rounded-[1.5rem] border border-white/10 bg-white/5 px-4 py-4 text-sm leading-7 text-white/75">
               {resolvedNotes.noteA}
             </div>
-            <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/70">
+            <div className="rounded-[1.5rem] border border-white/10 bg-white/5 px-4 py-4 text-sm leading-7 text-white/75">
               {resolvedNotes.noteB}
             </div>
           </div>
@@ -96,16 +96,16 @@ export default function CapabilitiesSection({
             const Icon = item.icon ? iconMap[item.icon] ?? icons[index % icons.length] : icons[index % icons.length];
             const mediaUrl = item.media?.url;
             return (
-              <div key={`${item.title}-${index}`} className="glass-soft rounded-2xl p-5 space-y-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-accent-300 overflow-hidden">
+              <div key={`${item.title}-${index}`} className="glass-soft rounded-[1.7rem] p-5">
+                <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white/5 text-accent-300">
                   {mediaUrl ? (
-                    <Image src={mediaUrl} alt={item.title} width={40} height={40} className="object-cover" />
-                  ) : Icon ? (
+                    <Image src={mediaUrl} alt={item.title} width={44} height={44} className="object-cover" />
+                  ) : (
                     <Icon size={20} />
-                  ) : null}
+                  )}
                 </div>
-                <h3 className="text-lg font-semibold">{item.title}</h3>
-                <p className="text-sm text-muted">{item.desc}</p>
+                <h3 className="mt-4 text-lg font-semibold">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-muted">{item.desc}</p>
               </div>
             );
           })}

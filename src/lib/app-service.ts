@@ -26,6 +26,10 @@ export async function getPublishedApps(query: AppQuery = {}) {
       { title: { $regex: q, $options: 'i' } },
       { titleEn: { $regex: q, $options: 'i' } },
       { shortDesc: { $regex: q, $options: 'i' } },
+      { 'content.shortDesc.ar': { $regex: q, $options: 'i' } },
+      { 'content.shortDesc.en': { $regex: q, $options: 'i' } },
+      { 'content.description.ar': { $regex: q, $options: 'i' } },
+      { 'content.description.en': { $regex: q, $options: 'i' } },
       { tags: { $in: [new RegExp(q, 'i')] } }
     ];
   }
@@ -79,7 +83,9 @@ export async function getAdminApps(query: AppQuery = {}) {
     filter.$or = [
       { title: { $regex: q, $options: 'i' } },
       { titleEn: { $regex: q, $options: 'i' } },
-      { slug: { $regex: q, $options: 'i' } }
+      { slug: { $regex: q, $options: 'i' } },
+      { 'content.shortDesc.ar': { $regex: q, $options: 'i' } },
+      { 'content.shortDesc.en': { $regex: q, $options: 'i' } }
     ];
   }
 

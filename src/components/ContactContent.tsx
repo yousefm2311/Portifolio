@@ -1,11 +1,11 @@
 'use client';
 
+import type { FormEvent } from 'react';
+import { useState } from 'react';
 import Card from '@/components/ui/Card';
 import { Input, Textarea } from '@/components/ui/Inputs';
 import Button from '@/components/ui/Button';
 import { useLocale } from '@/components/LocaleProvider';
-import type { FormEvent } from 'react';
-import { useState } from 'react';
 
 export default function ContactContent() {
   const { locale, t } = useLocale();
@@ -28,12 +28,12 @@ export default function ContactContent() {
     }
     if (!emailOk) {
       return locale === 'ar'
-        ? 'اكتب بريد إلكتروني صحيح.'
+        ? 'اكتب بريدًا إلكترونيًا صحيحًا.'
         : 'Please enter a valid email address.';
     }
     if (trimmedMessage.length < 10) {
       return locale === 'ar'
-        ? 'الرسالة لازم تكون 10 حروف على الأقل.'
+        ? 'الرسالة لازم تكون 10 أحرف على الأقل.'
         : 'Message must be at least 10 characters.';
     }
     return null;
@@ -68,100 +68,105 @@ export default function ContactContent() {
     } else {
       const data = await res.json().catch(() => ({}));
       const rawError = typeof data?.error === 'string' ? data.error : null;
-      const message =
+      const responseMessage =
         rawError === 'Email provider is not configured.'
           ? locale === 'ar'
-            ? 'خدمة البريد غير مفعلة بعد. أضف إعدادات SMTP.'
-            : 'Email provider is not configured. Please add SMTP settings.'
+            ? 'خدمة البريد غير مفعلة بعد. أضف إعدادات SMTP أولًا.'
+            : 'Email provider is not configured yet. Please add SMTP settings first.'
           : locale === 'ar'
             ? 'تعذر إرسال الرسالة. حاول مرة أخرى.'
-            : 'Unable to send message. Please try again.';
-      setStatus({ type: 'error', message });
+            : 'Unable to send your message. Please try again.';
+      setStatus({ type: 'error', message: responseMessage });
     }
   };
-  return (
-    <>
-      <div className="space-y-3">
-        <p className="text-xs uppercase tracking-widest text-white/60">
-          {locale === 'ar' ? 'تواصل' : 'Contact'}
-        </p>
-        <h1 className="text-3xl font-semibold">{t('contactTitle')}</h1>
-        <p className="text-muted">{t('contactSubtitle')}</p>
-      </div>
 
-      <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-        <div className="space-y-4">
-          <Card className="glass-soft">
-            <h2 className="text-lg font-semibold">
-              {locale === 'ar' ? 'خطوات سريعة' : 'Quick steps'}
-            </h2>
-            <div className="mt-3 space-y-3 text-sm text-muted">
-              <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-                {locale === 'ar'
-                  ? 'ابعت فكرة المشروع أو نموذج أولي بسيط.'
-                  : 'Send a project brief or a lightweight prototype.'}
-              </div>
-              <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-                {locale === 'ar'
-                  ? 'هنتفق على النطاق والجدول الزمني سريعًا.'
-                  : 'We align quickly on scope and timelines.'}
-              </div>
-              <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-                {locale === 'ar'
-                  ? 'تبدأ التنفيذ مع تحديثات واضحة أولاً بأول.'
-                  : 'Execution starts with clear, weekly updates.'}
-              </div>
-            </div>
-          </Card>
-          <Card className="glass-soft">
-            <h2 className="text-lg font-semibold">
-              {locale === 'ar' ? 'وقت الرد' : 'Response time'}
-            </h2>
-            <p className="mt-3 text-sm text-muted">
-              {locale === 'ar'
-                ? 'عادةً برد خلال 24 ساعة في أيام العمل.'
-                : 'I usually reply within 24 hours on business days.'}
+  const quickSteps =
+    locale === 'ar'
+      ? [
+          'ابعت الفكرة أو وصفًا مختصرًا للمشروع.',
+          'سنرتب النطاق والنتيجة المطلوبة بسرعة.',
+          'نبدأ التنفيذ مع تحديثات واضحة ومستمرة.'
+        ]
+      : [
+          'Send the idea or a short project brief.',
+          'We align on scope and the desired outcome quickly.',
+          'Execution starts with clear, steady updates.'
+        ];
+
+  return (
+    <div className="space-y-8">
+      <section className="section-shell p-6 sm:p-8">
+        <div className="relative z-10 grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
+          <div className="space-y-4">
+            <p className="text-xs uppercase tracking-[0.24em] text-white/55">
+              {locale === 'ar' ? 'تواصل' : 'Contact'}
             </p>
+            <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">{t('contactTitle')}</h1>
+            <p className="max-w-2xl text-sm leading-8 text-muted">{t('contactSubtitle')}</p>
+
+            <Card className="glass-soft rounded-[1.8rem] border border-white/10">
+              <h2 className="text-lg font-semibold">
+                {locale === 'ar' ? 'خطوات سريعة' : 'Quick steps'}
+              </h2>
+              <div className="mt-4 space-y-3 text-sm text-muted">
+                {quickSteps.map((step) => (
+                  <div key={step} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                    {step}
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            <Card className="glass-soft rounded-[1.8rem] border border-white/10">
+              <h2 className="text-lg font-semibold">
+                {locale === 'ar' ? 'وقت الرد' : 'Response time'}
+              </h2>
+              <p className="mt-3 text-sm leading-7 text-muted">
+                {locale === 'ar'
+                  ? 'عادةً يصل الرد خلال 24 ساعة في أيام العمل.'
+                  : 'I usually reply within 24 hours on business days.'}
+              </p>
+            </Card>
+          </div>
+
+          <Card className="glass-soft rounded-[1.8rem] border border-white/10">
+            <form className="space-y-4" onSubmit={submit}>
+              <Input
+                placeholder={locale === 'ar' ? 'الاسم الكامل' : 'Full name'}
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                required
+              />
+              <Input
+                placeholder={locale === 'ar' ? 'البريد الإلكتروني' : 'Email address'}
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                required
+              />
+              <Textarea
+                placeholder={locale === 'ar' ? 'رسالتك' : 'Your message'}
+                rows={6}
+                value={message}
+                onChange={(event) => setMessage(event.target.value)}
+                required
+              />
+              <Button type="submit" disabled={sending}>
+                {sending ? (locale === 'ar' ? 'جارٍ الإرسال...' : 'Sending...') : t('sendMessage')}
+              </Button>
+              {status && (
+                <p
+                  className={`text-sm ${
+                    status.type === 'success' ? 'text-emerald-200' : 'text-red-200'
+                  }`}
+                >
+                  {status.message}
+                </p>
+              )}
+            </form>
           </Card>
         </div>
-
-        <Card className="glass-soft max-w-2xl">
-          <form className="space-y-4" onSubmit={submit}>
-            <Input
-              placeholder={locale === 'ar' ? 'الاسم الكامل' : 'Full name'}
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              required
-            />
-            <Input
-              placeholder={locale === 'ar' ? 'البريد الإلكتروني' : 'Email address'}
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              required
-            />
-            <Textarea
-              placeholder={locale === 'ar' ? 'رسالتك' : 'Your message'}
-              rows={5}
-              value={message}
-              onChange={(event) => setMessage(event.target.value)}
-              required
-            />
-            <Button type="submit" disabled={sending}>
-              {sending ? (locale === 'ar' ? 'جاري الإرسال...' : 'Sending...') : t('sendMessage')}
-            </Button>
-            {status && (
-              <p
-                className={`text-xs ${
-                  status.type === 'success' ? 'text-emerald-200' : 'text-red-200'
-                }`}
-              >
-                {status.message}
-              </p>
-            )}
-          </form>
-        </Card>
-      </div>
-    </>
+      </section>
+    </div>
   );
 }

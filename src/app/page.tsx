@@ -21,20 +21,17 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen">
-      <main className="mx-auto max-w-6xl px-4">
+      <main className="mx-auto max-w-6xl space-y-20 px-4 pb-16">
         <Hero cvUrl={cvUrl} badges={settings?.heroBadges ?? null} />
-        <section className="space-y-6 pb-10">
-          <ImpactStrip items={settings?.impactItems ?? null} />
-          <TechMarquee items={settings?.techMarquee ?? null} />
-        </section>
         <FeaturedApps apps={items} />
+        <ImpactStrip items={settings?.impactItems ?? null} />
         <CapabilitiesSection
           intro={settings?.capabilitiesIntro ?? null}
           notes={settings?.capabilitiesNotes ?? null}
           items={settings?.capabilitiesItems ?? null}
         />
 
-        <section id="launcher" className="py-20">
+        <section id="launcher">
           <Launcher apps={items} showCaseStudy={Boolean(settings?.enableCaseStudy)} />
         </section>
 
@@ -42,6 +39,7 @@ export default async function HomePage() {
           intro={settings?.processIntro ?? null}
           steps={settings?.processSteps ?? null}
         />
+        <TechMarquee items={settings?.techMarquee ?? null} />
         {settings?.enableResources && (
           <ResourcesSection resources={settings?.resources ?? null} />
         )}

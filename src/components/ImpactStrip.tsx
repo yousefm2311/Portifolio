@@ -6,9 +6,9 @@ import type { LocalizedImpact } from '@/lib/types';
 const defaultItems: LocalizedImpact = {
   ar: [
     { value: '12+', label: 'منتج تم إطلاقه' },
-    { value: '6', label: 'سنوات خبرة في الإنتاج' },
-    { value: '40+', label: 'تجربة تفاعلية' },
-    { value: '99.9%', label: 'استقرار في الإطلاق' }
+    { value: '6', label: 'سنوات خبرة تنفيذية' },
+    { value: '40+', label: 'رحلة استخدام تفاعلية' },
+    { value: '99.9%', label: 'ثبات في الإطلاق' }
   ],
   en: [
     { value: '12+', label: 'Products shipped' },
@@ -26,14 +26,17 @@ export default function ImpactStrip({ items }: { items?: LocalizedImpact | null 
       : defaultItems[locale];
 
   return (
-    <section className="grid gap-4 md:grid-cols-4">
-      {resolvedItems.map((item) => (
+    <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+      {resolvedItems.map((item, index) => (
         <div
           key={`${item.value}-${item.label}`}
-          className="glass-soft rounded-2xl px-4 py-5 text-center transition hover:-translate-y-1 hover:border-white/30"
+          className="rounded-[1.6rem] border border-white/10 bg-white/[0.03] px-5 py-5 transition hover:border-white/20"
         >
-          <div className="text-2xl font-semibold text-gradient">{item.value}</div>
-          <div className="mt-1 text-xs uppercase tracking-widest text-white/60">{item.label}</div>
+          <p className="text-xs uppercase tracking-[0.24em] text-white/40">
+            {String(index + 1).padStart(2, '0')}
+          </p>
+          <div className="mt-3 text-2xl font-semibold text-gradient">{item.value}</div>
+          <div className="mt-2 text-sm leading-7 text-white/68">{item.label}</div>
         </div>
       ))}
     </section>

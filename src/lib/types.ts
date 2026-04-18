@@ -12,6 +12,31 @@ export type MediaDTO = {
   alt?: string;
 };
 
+export type LocalizedText = {
+  ar: string;
+  en: string;
+};
+
+export type LocalizedFeature = {
+  title: LocalizedText;
+  details: LocalizedText;
+};
+
+export type LocalizedCaseStudy = {
+  problem: LocalizedText;
+  solution: LocalizedText;
+  architecture: LocalizedText;
+  challenges: LocalizedText;
+  results: LocalizedText;
+};
+
+export type AppContentDTO = {
+  shortDesc: LocalizedText;
+  description: LocalizedText;
+  caseStudy: LocalizedCaseStudy;
+  features: LocalizedFeature[];
+};
+
 export type AppDTO = {
   _id: string;
   title: string;
@@ -63,6 +88,7 @@ export type AppDTO = {
     challenges: string;
     results: string;
   };
+  content?: AppContentDTO;
   status: 'draft' | 'published';
   publishedAt?: string;
   createdAt: string;

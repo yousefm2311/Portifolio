@@ -21,6 +21,24 @@ export const featureSchema = z.object({
   details: z.string().min(1)
 });
 
+export const localizedTextSchema = z.object({
+  ar: z.string().default(''),
+  en: z.string().default('')
+});
+
+export const localizedFeatureSchema = z.object({
+  title: localizedTextSchema,
+  details: localizedTextSchema
+});
+
+export const localizedCaseStudySchema = z.object({
+  problem: localizedTextSchema,
+  solution: localizedTextSchema,
+  architecture: localizedTextSchema,
+  challenges: localizedTextSchema,
+  results: localizedTextSchema
+});
+
 export const kpiSchema = z.object({
   label: z.string().min(1),
   value: z.string().min(1)
@@ -102,6 +120,14 @@ export const appInputSchema = z.object({
     challenges: z.string().min(5),
     results: z.string().min(5)
   }),
+  content: z
+    .object({
+      shortDesc: localizedTextSchema,
+      description: localizedTextSchema,
+      caseStudy: localizedCaseStudySchema,
+      features: z.array(localizedFeatureSchema).default([])
+    })
+    .optional(),
   status: z.enum(['draft', 'published']).optional()
 });
 

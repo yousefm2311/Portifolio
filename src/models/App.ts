@@ -18,6 +18,22 @@ const FeatureSchema = new Schema(
   { _id: false }
 );
 
+const LocalizedTextSchema = new Schema(
+  {
+    ar: { type: String, default: '' },
+    en: { type: String, default: '' }
+  },
+  { _id: false }
+);
+
+const LocalizedFeatureSchema = new Schema(
+  {
+    title: { type: LocalizedTextSchema, default: () => ({ ar: '', en: '' }) },
+    details: { type: LocalizedTextSchema, default: () => ({ ar: '', en: '' }) }
+  },
+  { _id: false }
+);
+
 const KpiSchema = new Schema(
   {
     label: { type: String, required: true },
@@ -88,6 +104,18 @@ const AppSchema = new Schema(
       architecture: { type: String, required: true },
       challenges: { type: String, required: true },
       results: { type: String, required: true }
+    },
+    content: {
+      shortDesc: { type: LocalizedTextSchema, default: () => ({ ar: '', en: '' }) },
+      description: { type: LocalizedTextSchema, default: () => ({ ar: '', en: '' }) },
+      caseStudy: {
+        problem: { type: LocalizedTextSchema, default: () => ({ ar: '', en: '' }) },
+        solution: { type: LocalizedTextSchema, default: () => ({ ar: '', en: '' }) },
+        architecture: { type: LocalizedTextSchema, default: () => ({ ar: '', en: '' }) },
+        challenges: { type: LocalizedTextSchema, default: () => ({ ar: '', en: '' }) },
+        results: { type: LocalizedTextSchema, default: () => ({ ar: '', en: '' }) }
+      },
+      features: { type: [LocalizedFeatureSchema], default: [] }
     },
     status: { type: String, enum: ['draft', 'published'], default: 'draft' },
     publishedAt: { type: Date }
