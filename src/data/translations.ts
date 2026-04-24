@@ -1,90 +1,121 @@
 export const translations = {
   ar: {
-    heroTitle: 'بورتفوليو يقدّم التطبيقات كأنها منتج حي داخل موبايل حقيقي.',
+    heroTitle: 'بورتفوليو بسيط لعرض التطبيقات بشكل مباشر',
     heroSubtitle:
-      'أعرض تطبيقات Flutter والويب بشكل بصري مقنع، مع معاينات داخل جهاز، دراسة حالة، وتجربة تشبه العرض الحقيقي للعميل.',
-    openGallery: 'افتح المعرض',
-    viewApps: 'عرض التطبيقات',
-    downloadCv: 'تحميل السيرة الذاتية',
+      'بعرض شغلي في Flutter والويب كمنتجات حقيقية، مع تجربة تفاعلية داخل كل تطبيق بدل ما تكون مجرد صور.',
+
+    openGallery: 'المعرض',
+    viewApps: 'التطبيقات',
+    downloadCv: 'السيرة الذاتية',
+
     about: 'نبذة',
     contact: 'تواصل',
     apps: 'التطبيقات',
     resources: 'الموارد',
     services: 'الخدمات',
-    launcherTitle: 'تجربة الهاتف',
-    launcherSubtitle: 'استكشف التطبيقات داخل المسرح التفاعلي واضغط على أي تطبيق لفتحه.',
+
+    launcherTitle: 'عرض التطبيقات',
+    launcherSubtitle: 'تصفح المشاريع وافتح أي تطبيق عشان تشوفه بشكل كامل.',
+
     searchPlaceholder: 'ابحث عن تطبيق أو تقنية...',
     searchAction: 'بحث',
-    loading: 'جارٍ التحميل...',
-    noResults: 'لا توجد نتائج',
-    noVideo: 'لا يوجد فيديو أو غلاف متاح لهذا التطبيق.',
-    commandPaletteHint: 'اضغط Ctrl + K للوصول السريع',
-    liveDemo: 'المعاينة التفاعلية',
-    screenshots: 'لقطات الشاشة',
-    caseStudy: 'دراسة الحالة',
-    openFullscreen: 'فتح العرض الكامل',
-    viewGithub: 'عرض GitHub',
+
+    loading: 'جاري التحميل...',
+    noResults: 'لا يوجد نتائج',
+    noVideo: 'لا يوجد محتوى لهذا التطبيق.',
+
+    commandPaletteHint: 'Ctrl + K للبحث السريع',
+
+    liveDemo: 'معاينة',
+    screenshots: 'صور',
+    caseStudy: 'تفاصيل المشروع',
+
+    openFullscreen: 'فتح',
+    viewGithub: 'GitHub',
     downloadApk: 'تحميل APK',
-    roles: 'وضع العرض',
-    customer: 'العميل',
-    driver: 'السائق',
-    admin: 'الإدارة',
+
+    roles: 'الوضع',
+    customer: 'عميل',
+    driver: 'سائق',
+    admin: 'إدارة',
+
     techStack: 'التقنيات',
-    features: 'المزايا',
+    features: 'المميزات',
     kpis: 'النتائج',
-    viewDetails: 'عرض التفاصيل',
-    filters: 'الفلاتر',
+
+    viewDetails: 'التفاصيل',
+
+    filters: 'فلترة',
     all: 'الكل',
     flutter: 'Flutter',
-    backend: 'الخلفية',
-    tools: 'الأدوات',
-    adminCategory: 'لوحات الإدارة',
+    backend: 'Backend',
+    tools: 'Tools',
+    adminCategory: 'Admin',
     devops: 'DevOps',
-    timelineTitle: 'رحلة التطوير',
-    contactTitle: 'لنتكلم عن مشروعك',
-    contactSubtitle: 'لو عندك فكرة، MVP، أو تطبيق يحتاج إعادة تقديم أقوى، ابعت التفاصيل ونبدأ.',
-    sendMessage: 'إرسال الرسالة',
-    aboutTitle: 'من أنا؟',
-    aboutSubtitle: 'مهندس Full-Stack يركز على تقديم منتجات رقمية واضحة، سريعة، ومقنعة بصريًا.',
-    studioLogin: 'دخول الإدارة',
+
+    timelineTitle: 'المسار',
+    contactTitle: 'خلينا نشتغل على مشروعك',
+    contactSubtitle:
+      'لو عندك فكرة أو تطبيق، ابعت التفاصيل ونشوف أنسب طريقة لتنفيذه.',
+
+    sendMessage: 'إرسال',
+
+    aboutTitle: 'نبذة عني',
+    aboutSubtitle:
+      'مطور Full-Stack بشتغل على بناء تطبيقات بسيطة، واضحة، وقابلة للاستخدام.',
+
+    studioLogin: 'تسجيل الدخول',
     studioApps: 'إدارة التطبيقات',
-    studioMedia: 'مكتبة الوسائط',
+    studioMedia: 'الوسائط',
     studioSettings: 'الإعدادات'
   },
+
   en: {
-    heroTitle: 'A portfolio that presents apps like real products inside a living phone demo.',
+    heroTitle: 'A simple portfolio for real app showcases',
     heroSubtitle:
-      'Flutter and web work presented through device-based previews, strong storytelling, and case studies that feel client-ready.',
-    openGallery: 'Open Gallery',
-    viewApps: 'View Apps',
-    downloadCv: 'Download CV',
+      'I present Flutter and web projects as working products, not just static screenshots.',
+
+    openGallery: 'Gallery',
+    viewApps: 'Apps',
+    downloadCv: 'CV',
+
     about: 'About',
     contact: 'Contact',
     apps: 'Apps',
     resources: 'Resources',
     services: 'Services',
-    launcherTitle: 'Phone Showcase',
-    launcherSubtitle: 'Browse the interactive stage and open any app to inspect the full experience.',
-    searchPlaceholder: 'Search apps or technologies...',
+
+    launcherTitle: 'App Showcase',
+    launcherSubtitle: 'Browse projects and open any app to explore it fully.',
+
+    searchPlaceholder: 'Search apps or tech...',
     searchAction: 'Search',
+
     loading: 'Loading...',
-    noResults: 'No results found',
-    noVideo: 'No video or cover is available for this app.',
-    commandPaletteHint: 'Press Ctrl + K for quick access',
-    liveDemo: 'Live Preview',
+    noResults: 'No results',
+    noVideo: 'No content available.',
+
+    commandPaletteHint: 'Press Ctrl + K',
+
+    liveDemo: 'Preview',
     screenshots: 'Screenshots',
-    caseStudy: 'Case Study',
-    openFullscreen: 'Open Full Experience',
-    viewGithub: 'View GitHub',
+    caseStudy: 'Details',
+
+    openFullscreen: 'Open',
+    viewGithub: 'GitHub',
     downloadApk: 'Download APK',
-    roles: 'Preview Mode',
+
+    roles: 'Mode',
     customer: 'Customer',
     driver: 'Driver',
     admin: 'Admin',
-    techStack: 'Tech Stack',
-    features: 'Highlights',
-    kpis: 'Outcomes',
-    viewDetails: 'View Details',
+
+    techStack: 'Tech',
+    features: 'Features',
+    kpis: 'Results',
+
+    viewDetails: 'View',
+
     filters: 'Filters',
     all: 'All',
     flutter: 'Flutter',
@@ -92,20 +123,22 @@ export const translations = {
     tools: 'Tools',
     adminCategory: 'Admin',
     devops: 'DevOps',
+
     timelineTitle: 'Journey',
-    contactTitle: 'Let’s talk about your product',
+
+    contactTitle: 'Let’s build your product',
     contactSubtitle:
-      'If you have an idea, MVP, or an app that needs a stronger presentation, send the details and we can shape it.',
-    sendMessage: 'Send Message',
-    aboutTitle: 'Who am I?',
+      'If you have an idea or app, share it and we’ll figure out the best way to build it.',
+
+    sendMessage: 'Send',
+
+    aboutTitle: 'About me',
     aboutSubtitle:
-      'A full-stack engineer focused on clear products, fast execution, and polished user-facing experiences.',
-    studioLogin: 'Admin Login',
-    studioApps: 'Apps Studio',
-    studioMedia: 'Media Library',
+      'A full-stack developer focused on building simple, usable, and real-world products.',
+
+    studioLogin: 'Login',
+    studioApps: 'Apps',
+    studioMedia: 'Media',
     studioSettings: 'Settings'
   }
-} as const;
-
-export type Locale = keyof typeof translations;
-export type TranslationKey = keyof typeof translations.ar;
+} as const
