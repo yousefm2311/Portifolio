@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/Button';
 import { MediaDTO } from '@/lib/types';
+import { withMediaProxy } from '@/lib/media-proxy';
 
 export default function AdminMediaGrid({ initialMedia }: { initialMedia: MediaDTO[] }) {
   const [media, setMedia] = useState(initialMedia);
@@ -69,9 +70,9 @@ export default function AdminMediaGrid({ initialMedia }: { initialMedia: MediaDT
           <div key={item._id} className="glass rounded-2xl overflow-hidden">
             <div className="relative h-40" suppressHydrationWarning>
               {item.type === 'video' ? (
-                <video src={item.url} className="h-full w-full object-cover" />
+                <video src={withMediaProxy(item.url)} className="h-full w-full object-cover" />
               ) : (
-                <Image src={item.thumbnailUrl ?? item.url} alt={item.alt ?? 'media'} fill className="object-cover" />
+                <Image src={withMediaProxy(item.thumbnailUrl ?? item.url)} alt={item.alt ?? 'media'} fill className="object-cover" />
               )}
             </div>
             <div className="p-4 space-y-2">

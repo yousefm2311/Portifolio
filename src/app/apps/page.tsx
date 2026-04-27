@@ -25,7 +25,7 @@ export default async function AppsPage({
 
   return (
     <div className="min-h-screen">
-      <main className="mx-auto max-w-6xl px-4 py-16 space-y-10">
+      <main className="mx-auto max-w-7xl px-4 py-12 space-y-8 sm:py-16">
         <AppsHeader total={appsResponse.total} />
         <AppsFilters />
         <AppsGrid apps={items} showCaseStudy={Boolean(settings?.enableCaseStudy)} />

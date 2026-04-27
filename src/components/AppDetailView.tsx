@@ -32,17 +32,55 @@ export default function AppDetailView({
   const localizedFeatures = getLocalizedAppFeatures(app, locale);
   const roles = app.roleVariants ?? [];
   const kpis = app.kpis ?? [];
+  const externalLinks = [
+    { href: app.links?.liveDemoUrl, label: t('openFullscreen'), variant: 'primary' as const },
+    { href: app.links?.githubUrl, label: t('viewGithub'), variant: 'secondary' as const },
+    { href: app.links?.apkUrl, label: t('downloadApk'), variant: 'secondary' as const },
+    { href: app.links?.playStoreUrl, label: 'Play Store', variant: 'ghost' as const },
+    { href: app.links?.appStoreUrl, label: 'App Store', variant: 'ghost' as const }
+  ].filter((item) => Boolean(item.href));
+
+  const caseBlocks = [
+    { key: 'problem', label: locale === 'ar' ? 'المشكلة' : 'Problem', value: localizedCaseStudy.problem },
+    { key: 'solution', label: locale === 'ar' ? 'الحل' : 'Solution', value: localizedCaseStudy.solution },
+    {
+      key: 'architecture',
+      label: locale === 'ar' ? 'المعمارية' : 'Architecture',
+      value: localizedCaseStudy.architecture
+    },
+    {
+      key: 'challenges',
+      label: locale === 'ar' ? 'التحديات' : 'Challenges',
+      value: localizedCaseStudy.challenges
+    },
+    { key: 'results', label: locale === 'ar' ? 'النتائج' : 'Results', value: localizedCaseStudy.results }
+  ].filter((block) => block.value?.trim());
 
   return (
-    <main className="mx-auto max-w-6xl space-y-8 px-4 py-16">
-      <section className="section-shell p-6 sm:p-8">
-        <div className="relative z-10 grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
-          <div className="space-y-4">
-            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
-              {getLocalizedCategory(app.category, locale)}
-            </span>
-            <h1 className="text-4xl font-semibold tracking-tight md:text-5xl">{title}</h1>
-            <p className="max-w-2xl text-sm leading-8 text-muted">{summary}</p>
+    <main className="mx-auto max-w-7xl space-y-10 px-4 py-10 sm:py-16">
+      <section className="section-shell p-5 sm:p-8">
+        <div className="relative z-10 grid items-center gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(320px,430px)]">
+          <div className="space-y-6">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
+                {getLocalizedCategory(app.category, locale)}
+              </span>
+              {roles.map((role) => (
+                <span
+                  key={role.key}
+                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/65"
+                >
+                  {getLocalizedRoleLabel(role, locale)}
+                </span>
+              ))}
+            </div>
+
+            <div className="space-y-4">
+              <h1 className="max-w-4xl text-4xl font-semibold tracking-tight md:text-6xl">
+                {title}
+              </h1>
+              <p className="max-w-3xl text-sm leading-8 text-muted sm:text-base">{summary}</p>
+            </div>
 
             {(app.techStack ?? []).length > 0 && (
               <div className="flex flex-wrap gap-2">
@@ -57,30 +95,12 @@ export default function AppDetailView({
               </div>
             )}
 
-            {roles.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                {roles.map((role) => (
-                  <span
-                    key={role.key}
-                    className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70"
-                  >
-                    {getLocalizedRoleLabel(role, locale)}
-                  </span>
-                ))}
-              </div>
-            )}
-
-            <div className="flex flex-wrap gap-3 pt-2">
-              {app.links?.liveDemoUrl && (
-                <a href={app.links.liveDemoUrl} target="_blank" rel="noreferrer">
-                  <Button>{t('openFullscreen')}</Button>
+            <div className="flex flex-wrap gap-3 pt-1">
+              {externalLinks.map((item) => (
+                <a key={item.label} href={item.href} target="_blank" rel="noreferrer">
+                  <Button variant={item.variant}>{item.label}</Button>
                 </a>
-              )}
-              {app.links?.githubUrl && (
-                <a href={app.links.githubUrl} target="_blank" rel="noreferrer">
-                  <Button variant="secondary">{t('viewGithub')}</Button>
-                </a>
-              )}
+              ))}
               {showCaseStudy && (
                 <Link href={`/app/${app.slug}/case-study`}>
                   <Button variant="ghost">{t('caseStudy')}</Button>
@@ -89,7 +109,7 @@ export default function AppDetailView({
             </div>
           </div>
 
-          <div className="glass-soft rounded-[1.8rem] p-4 sm:p-5">
+          <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.035] p-4 sm:p-5">
             <AppPreview app={app} />
           </div>
         </div>
@@ -98,23 +118,35 @@ export default function AppDetailView({
       {kpis.length > 0 && (
         <section className="grid gap-4 md:grid-cols-3">
           {kpis.map((item) => (
-            <div key={`${item.label}-${item.value}`} className="glass-soft rounded-[1.8rem] p-5">
-              <p className="text-xs uppercase tracking-[0.22em] text-white/45">{item.label}</p>
+            <div key={`${item.label}-${item.value}`} className="glass-soft rounded-[1.5rem] p-5">
+              <p className="text-xs uppercase tracking-[0.18em] text-white/45">{item.label}</p>
               <p className="mt-3 text-3xl font-semibold text-gradient">{item.value}</p>
             </div>
           ))}
         </section>
       )}
 
-      <section className="grid gap-6 xl:grid-cols-[1.02fr_0.98fr]">
-        <div className="glass-soft rounded-[1.8rem] p-5">
-          <h2 className="mb-4 text-xl font-semibold">
-            {locale === 'ar' ? 'لقطات الشاشة' : 'Screenshots'}
-          </h2>
+      <section className="section-shell p-5 sm:p-7">
+        <div className="relative z-10 space-y-5">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p className="text-xs uppercase tracking-[0.22em] text-white/45">
+                {locale === 'ar' ? 'المعرض' : 'Gallery'}
+              </p>
+              <h2 className="mt-2 text-2xl font-semibold">
+                {locale === 'ar' ? 'صور التطبيق' : 'App screenshots'}
+              </h2>
+            </div>
+            <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/65">
+              {(app.media.gallery ?? []).length} {locale === 'ar' ? 'صورة' : 'screens'}
+            </span>
+          </div>
           <Gallery items={app.media.gallery ?? []} mode={app.mediaDisplay?.gallery ?? 'phone'} />
         </div>
+      </section>
 
-        <div className="glass-soft rounded-[1.8rem] p-5">
+      <section className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
+        <div className="glass-soft rounded-[1.5rem] p-5 sm:p-6">
           <h2 className="mb-4 text-xl font-semibold">
             {locale === 'ar' ? 'المزايا الرئيسية' : 'Core highlights'}
           </h2>
@@ -133,36 +165,25 @@ export default function AppDetailView({
             )}
           </div>
         </div>
+
+        <div className="glass-soft rounded-[1.5rem] p-5 sm:p-6">
+          <h2 className="mb-4 text-xl font-semibold">
+            {locale === 'ar' ? 'تفاصيل المشروع' : 'Project details'}
+          </h2>
+          <MarkdownRenderer content={description} />
+        </div>
       </section>
 
-      {showCaseStudy && (
+      {showCaseStudy && caseBlocks.length > 0 && (
         <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
-          {[
-            { key: 'problem', label: locale === 'ar' ? 'المشكلة' : 'Problem', value: localizedCaseStudy.problem },
-            { key: 'solution', label: locale === 'ar' ? 'الحل' : 'Solution', value: localizedCaseStudy.solution },
-            {
-              key: 'architecture',
-              label: locale === 'ar' ? 'المعمارية' : 'Architecture',
-              value: localizedCaseStudy.architecture
-            },
-            {
-              key: 'challenges',
-              label: locale === 'ar' ? 'التحديات' : 'Challenges',
-              value: localizedCaseStudy.challenges
-            },
-            { key: 'results', label: locale === 'ar' ? 'النتائج' : 'Results', value: localizedCaseStudy.results }
-          ].map((block) => (
-            <div key={block.key} className="glass-soft rounded-[1.8rem] p-5">
-              <p className="text-xs uppercase tracking-[0.22em] text-white/45">{block.label}</p>
+          {caseBlocks.map((block) => (
+            <div key={block.key} className="glass-soft rounded-[1.5rem] p-5">
+              <p className="text-xs uppercase tracking-[0.18em] text-white/45">{block.label}</p>
               <p className="mt-3 text-sm leading-7 text-muted">{block.value}</p>
             </div>
           ))}
         </section>
       )}
-
-      <div className="glass-soft rounded-[1.8rem] p-5">
-        <MarkdownRenderer content={description} />
-      </div>
     </main>
   );
 }

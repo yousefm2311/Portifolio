@@ -25,6 +25,9 @@ export function normalizeMedia(input: any): MediaDTO | undefined {
     providerId: input.providerId,
     url: input.url,
     thumbnailUrl: input.thumbnailUrl,
+    originalName: input.originalName,
+    normalizedName: input.normalizedName,
+    mimeType: input.mimeType,
     width: input.width,
     height: input.height,
     duration: input.duration,
@@ -61,7 +64,7 @@ export function normalizeApp(doc: any): AppDTO {
     kpis: doc.kpis ?? [],
     links: doc.links ?? {},
     demo: {
-      type: doc.demo?.type,
+      type: doc.demo?.type ?? 'none',
       embedUrl: doc.demo?.embedUrl,
       videoId: toId(doc.demo?.videoId),
       video: demoVideo,

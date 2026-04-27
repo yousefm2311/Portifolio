@@ -35,11 +35,23 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'File too large' }, { status: 400 });
   }
 
-  if (!file.type.includes('zip')) {
+  const isZip =
+    file.type.includes('zip') ||
+    file.type === 'application/octet-stream' ||
+    file.name.toLowerCase().endsWith('.zip');
+
+  if (!isZip) {
     return NextResponse.json({ error: 'Only ZIP files are supported' }, { status: 400 });
   }
 
-  const { embedUrl, folderName } = await uploadFlutterWebZip(file, parsed.data.slug);
+  try {
+    const { embedUrl, folderName } = await uploadFlutterWebZip(file, parsed.data.slug);
 
-  return NextResponse.json({ embedUrl, folderName });
+    return NextResponse.json({ embedUrl, folderName });
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: error?.message ?? 'Failed to upload Flutter Web build' },
+      { status: 400 }
+    );
+  }
 }

@@ -7,6 +7,7 @@ import { MediaDTO } from '@/lib/types';
 import Iphone17ProMaxFrame from '@/components/Iphone17ProMaxFrame';
 import { useLocale } from '@/components/LocaleProvider';
 import { cn } from '@/lib/utils';
+import { withMediaProxy } from '@/lib/media-proxy';
 
 export default function Gallery({
   items,
@@ -27,6 +28,7 @@ export default function Gallery({
   }
 
   const current = items[index];
+  const currentUrl = withMediaProxy(current.url);
   const canNavigate = items.length > 1;
 
   const move = (direction: 'prev' | 'next') => {
@@ -60,10 +62,10 @@ export default function Gallery({
   const preview = (
     <div className="relative h-full w-full overflow-hidden bg-black/70">
       <Image
-        src={current.url}
+        src={currentUrl}
         alt={current.alt ?? (locale === 'ar' ? 'لقطة شاشة' : 'Screenshot')}
         fill
-        className={cn(mode === 'phone' ? 'object-cover' : 'object-contain')}
+        className={cn('object-contain')}
         sizes="(max-width: 768px) 100vw, 60vw"
       />
       {controls}
@@ -71,7 +73,7 @@ export default function Gallery({
   );
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 overflow-hidden">
       <div className="flex items-center justify-between text-xs uppercase tracking-[0.2em] text-white/45">
         <span>{locale === 'ar' ? 'المعرض' : 'Gallery'}</span>
         <span>
@@ -80,7 +82,9 @@ export default function Gallery({
       </div>
 
       {mode === 'phone' ? (
-        <Iphone17ProMaxFrame>{preview}</Iphone17ProMaxFrame>
+        <Iphone17ProMaxFrame className="max-w-[310px] scale-100 sm:max-w-[340px] sm:scale-100 lg:scale-100">
+          {preview}
+        </Iphone17ProMaxFrame>
       ) : (
         <div className="relative aspect-video w-full overflow-hidden rounded-[1.8rem] border border-white/10 bg-black/50">
           {preview}
@@ -92,13 +96,13 @@ export default function Gallery({
           <button
             key={item._id}
             type="button"
-            className={`h-16 w-24 overflow-hidden rounded-xl border transition ${
+            className={`h-16 w-24 shrink-0 overflow-hidden rounded-xl border transition ${
               i === index ? 'border-accent-400 shadow-glow' : 'border-white/10'
             }`}
             onClick={() => setIndex(i)}
           >
             <Image
-              src={item.thumbnailUrl ?? item.url}
+              src={withMediaProxy(item.thumbnailUrl ?? item.url)}
               alt={item.alt ?? (locale === 'ar' ? 'صورة مصغرة' : 'Thumbnail')}
               width={96}
               height={64}

@@ -5,6 +5,9 @@ export type MediaDTO = {
   providerId?: string;
   url: string;
   thumbnailUrl?: string;
+  originalName?: string;
+  normalizedName?: string;
+  mimeType?: string;
   width?: number;
   height?: number;
   duration?: number;
@@ -59,7 +62,7 @@ export type AppDTO = {
     appStoreUrl?: string;
   };
   demo: {
-    type: 'video' | 'flutter_web' | 'interactive_video';
+    type: 'none' | 'video' | 'flutter_web' | 'interactive_video';
     embedUrl?: string;
     videoId?: string;
     video?: MediaDTO;

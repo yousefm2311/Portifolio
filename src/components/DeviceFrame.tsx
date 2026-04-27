@@ -10,7 +10,7 @@ export default function DeviceFrame({
   return (
     <div
       className={cn(
-        'relative mx-auto w-full max-w-[360px] origin-top scale-[0.92] sm:scale-[0.95] lg:scale-100',
+        'relative mx-auto w-full max-w-[360px]',
         className
       )}
     >

@@ -2,28 +2,23 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
-import dynamic from 'next/dynamic';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Smartphone } from 'lucide-react';
 import { AppDTO } from '@/lib/types';
-import Button from '@/components/ui/Button';
 import { useLocale } from '@/components/LocaleProvider';
 import {
   getLocalizedAppSummary,
   getLocalizedAppTitle,
   getLocalizedCategory
 } from '@/lib/app-presentation';
-
-const AppModal = dynamic(() => import('@/components/AppModal'), { ssr: false });
+import { withMediaProxy } from '@/lib/media-proxy';
 
 export default function AppsGrid({
   apps,
-  showCaseStudy
+  showCaseStudy: _showCaseStudy
 }: {
   apps: AppDTO[];
   showCaseStudy?: boolean;
 }) {
-  const [selected, setSelected] = useState<AppDTO | null>(null);
   const { t, locale } = useLocale();
 
   if (apps.length === 0) {
@@ -42,52 +37,79 @@ export default function AppsGrid({
   }
 
   return (
-    <div className="space-y-6">
-      <div className="grid gap-5 lg:grid-cols-2">
+    <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {apps.map((app, index) => {
           const title = getLocalizedAppTitle(app, locale);
           const description = getLocalizedAppSummary(app, locale);
           const featured = index === 0;
+          const showcase = app.media.gallery?.[0] ?? app.media.cover ?? app.media.icon;
+          const screenshotCount = app.media.gallery?.length ?? 0;
 
           return (
-            <article
+            <Link
               key={app._id}
-              className={`group overflow-hidden rounded-[1.9rem] border border-white/10 bg-black/10 transition hover:-translate-y-1 hover:border-white/25 ${
-                featured ? 'lg:col-span-2' : ''
+              href={`/app/${app.slug}`}
+              className={`group overflow-hidden rounded-[1.8rem] border border-white/10 bg-white/[0.035] transition duration-300 hover:-translate-y-1 hover:border-accent-400/50 hover:bg-white/[0.055] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 ${
+                featured ? 'md:col-span-2 xl:col-span-2' : ''
               }`}
             >
-              <div className={`grid ${featured ? 'xl:grid-cols-[0.92fr_1.08fr]' : ''}`}>
-                <div className={`relative ${featured ? 'min-h-[320px]' : 'h-56'}`}>
-                  {app.media.cover?.url ? (
-                    <Image
-                      src={app.media.cover.url}
-                      alt={title}
-                      fill
-                      className="object-cover transition duration-700 group-hover:scale-[1.03]"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-accent-500/20 via-transparent to-accent-300/10" />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+              <article className={`grid h-full ${featured ? 'lg:grid-cols-[0.9fr_1.1fr]' : ''}`}>
+                <div className="relative min-h-[330px] overflow-hidden bg-[radial-gradient(circle_at_50%_8%,rgba(98,220,255,0.22),transparent_38%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))]">
+                  <div className="absolute inset-x-8 bottom-5 h-20 rounded-full bg-accent-500/15 blur-2xl transition group-hover:bg-accent-500/25" />
+                  <div className="relative mx-auto flex h-full min-h-[330px] w-full max-w-[250px] items-center justify-center p-5">
+                    <div className="relative w-full rounded-[2.45rem] bg-gradient-to-br from-ink-700 via-ink-900 to-black p-[8px] shadow-[0_28px_80px_rgba(0,0,0,0.45)] transition duration-500 group-hover:-translate-y-2">
+                      <div className="absolute left-1/2 top-4 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-black" />
+                      <div className="overflow-hidden rounded-[2.05rem] border border-white/10 bg-black">
+                        <div className="relative aspect-[9/19] w-full">
+                          {showcase?.url ? (
+                            <Image
+                              src={withMediaProxy(showcase.thumbnailUrl ?? showcase.url)}
+                              alt={showcase.alt ?? title}
+                              fill
+                              className="object-contain"
+                              sizes={featured ? '(max-width: 1024px) 50vw, 280px' : '260px'}
+                            />
+                          ) : (
+                            <div className="flex h-full w-full items-center justify-center text-white/45">
+                              <Smartphone size={42} />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="glass-soft h-full space-y-4 p-5 sm:p-6">
+                <div className="flex h-full min-h-[300px] flex-col justify-between gap-5 p-5 sm:p-6">
                   <div className="flex items-start justify-between gap-4">
                     <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
                       {getLocalizedCategory(app.category, locale)}
                     </span>
-                    <Link
-                      href={`/app/${app.slug}`}
-                      className="text-white/45 transition hover:text-white"
-                      aria-label={locale === 'ar' ? `فتح صفحة ${title}` : `Open ${title} page`}
-                    >
+                    <span className="rounded-full border border-white/10 p-2 text-white/45 transition group-hover:border-accent-400/50 group-hover:text-white">
                       <ArrowUpRight size={18} />
-                    </Link>
+                    </span>
                   </div>
 
                   <div className="space-y-3">
-                    <h3 className="text-2xl font-semibold tracking-tight">{title}</h3>
+                    <h3 className="text-2xl font-semibold tracking-tight sm:text-3xl">{title}</h3>
                     <p className="text-sm leading-7 text-muted">{description}</p>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
+                      <p className="text-xs uppercase tracking-[0.18em] text-white/45">
+                        {locale === 'ar' ? 'الشاشات' : 'Screens'}
+                      </p>
+                      <p className="mt-2 text-lg font-semibold">{screenshotCount || 1}</p>
+                    </div>
+                    <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
+                      <p className="text-xs uppercase tracking-[0.18em] text-white/45">
+                        {locale === 'ar' ? 'النوع' : 'Type'}
+                      </p>
+                      <p className="mt-2 truncate text-sm font-semibold">
+                        {getLocalizedCategory(app.category, locale)}
+                      </p>
+                    </div>
                   </div>
 
                   {(app.techStack ?? []).length > 0 && (
@@ -103,29 +125,15 @@ export default function AppsGrid({
                     </div>
                   )}
 
-                  <div className="flex flex-wrap gap-3 pt-1">
-                    <Button variant="secondary" onClick={() => setSelected(app)}>
-                      {t('viewDetails')}
-                    </Button>
-                    <Link href={`/app/${app.slug}`}>
-                      <Button variant="ghost">
-                        {locale === 'ar' ? 'صفحة التطبيق' : 'Open app page'}
-                      </Button>
-                    </Link>
-                  </div>
+                  <span className="inline-flex w-fit items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition group-hover:border-accent-400/50 group-hover:bg-accent-400/10">
+                    {t('viewDetails')}
+                    <ArrowUpRight size={16} />
+                  </span>
                 </div>
-              </div>
-            </article>
+              </article>
+            </Link>
           );
         })}
-      </div>
-
-      <AppModal
-        app={selected}
-        open={Boolean(selected)}
-        onClose={() => setSelected(null)}
-        showCaseStudy={showCaseStudy}
-      />
     </div>
   );
 }

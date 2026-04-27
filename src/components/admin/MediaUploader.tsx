@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 import Image from 'next/image';
+import { Trash2, X } from 'lucide-react';
 import { MediaDTO } from '@/lib/types';
 import Button from '@/components/ui/Button';
 import { withMediaProxy } from '@/lib/media-proxy';
@@ -87,6 +88,7 @@ export function MediaUploader({
           onChange={(event) => {
             const file = event.target.files?.[0];
             if (file) upload(file);
+            event.currentTarget.value = '';
           }}
         />
       </div>
@@ -125,13 +127,39 @@ export function GalleryUploader({
   const inputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [dragging, setDragging] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   const [progress, setProgress] = useState({ current: 0, total: 0, percent: 0 });
+
+  const normalizeName = (name?: string | null) => name?.trim().toLowerCase().replace(/\s+/g, ' ');
 
   const uploadFiles = async (files: FileList) => {
     setLoading(true);
+    setError(null);
     setProgress({ current: 0, total: files.length, percent: 0 });
     const uploaded: MediaDTO[] = [];
-    const list = Array.from(files);
+    const existingNames = new Set(
+      values
+        .map((item) => item.normalizedName ?? normalizeName(item.originalName))
+        .filter(Boolean)
+    );
+    const list: File[] = [];
+    const duplicateNames: string[] = [];
+
+    Array.from(files).forEach((file) => {
+      const normalized = normalizeName(file.name);
+      if (normalized && existingNames.has(normalized)) {
+        duplicateNames.push(file.name);
+        return;
+      }
+      if (normalized) existingNames.add(normalized);
+      list.push(file);
+    });
+
+    if (duplicateNames.length > 0) {
+      setError(`Already uploaded: ${duplicateNames.join(', ')}`);
+    }
+
     for (let i = 0; i < list.length; i += 1) {
       const file = list[i];
       const media = await new Promise<MediaDTO | null>((resolve) => {
@@ -153,10 +181,19 @@ export function GalleryUploader({
             const data = JSON.parse(xhr.responseText);
             resolve(data.media ?? null);
           } else {
+            try {
+              const data = JSON.parse(xhr.responseText);
+              setError(data?.error ?? `Upload failed: ${file.name}`);
+            } catch {
+              setError(`Upload failed: ${file.name}`);
+            }
             resolve(null);
           }
         };
-        xhr.onerror = () => resolve(null);
+        xhr.onerror = () => {
+          setError(`Upload failed: ${file.name}`);
+          resolve(null);
+        };
         xhr.send(formData);
       });
       if (media) uploaded.push(media);
@@ -164,6 +201,28 @@ export function GalleryUploader({
     onChange([...values, ...uploaded]);
     setLoading(false);
     setProgress({ current: 0, total: 0, percent: 0 });
+  };
+
+  const deleteMedia = async (media: MediaDTO) => {
+    const confirmed = window.confirm(`Delete ${media.originalName ?? 'this image'} from cloud?`);
+    if (!confirmed) return;
+
+    setDeletingId(media._id);
+    setError(null);
+    const res = await fetch(`/api/studio/media/${media._id}`, {
+      method: 'DELETE',
+      credentials: 'include'
+    });
+
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      setError(data?.error ?? 'Delete failed');
+      setDeletingId(null);
+      return;
+    }
+
+    onChange(values.filter((item) => item._id !== media._id));
+    setDeletingId(null);
   };
 
   return (
@@ -193,6 +252,7 @@ export function GalleryUploader({
           accept={accept}
           onChange={(event) => {
             if (event.target.files) uploadFiles(event.target.files);
+            event.currentTarget.value = '';
           }}
         />
       </div>
@@ -201,12 +261,22 @@ export function GalleryUploader({
           Uploading {progress.current}/{progress.total} - {progress.percent}%
         </div>
       )}
+      {error && <div className="text-xs text-red-300">{error}</div>}
       <div className="flex flex-wrap gap-3">
         {values.map((media) => (
           <div
             key={media._id}
             className="relative h-20 w-24 overflow-hidden rounded-xl border border-white/10"
           >
+            <button
+              type="button"
+              className="absolute right-1 top-1 z-10 rounded-full border border-white/15 bg-black/70 p-1 text-white transition hover:bg-red-500/80"
+              onClick={() => deleteMedia(media)}
+              disabled={deletingId === media._id}
+              aria-label={`Delete ${media.originalName ?? 'gallery image'}`}
+            >
+              {deletingId === media._id ? <X size={13} /> : <Trash2 size={13} />}
+            </button>
             {media.type === 'video' ? (
               <video src={withMediaProxy(media.url)} className="h-full w-full object-cover" />
             ) : (

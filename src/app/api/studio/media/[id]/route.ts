@@ -8,6 +8,16 @@ import { deleteFromOSS, getOssClient } from '@/lib/oss';
 
 export const runtime = 'nodejs';
 
+async function deleteFromCloudinary(providerId: string, mediaType: string) {
+  const primaryType = mediaType === 'video' ? 'video' : mediaType === 'file' ? 'raw' : 'image';
+  const fallbackTypes = ['image', 'video', 'raw'].filter((type) => type !== primaryType);
+
+  for (const resourceType of [primaryType, ...fallbackTypes]) {
+    const result = await cloudinary.uploader.destroy(providerId, { resource_type: resourceType });
+    if (result?.result === 'ok') return;
+  }
+}
+
 export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const limited = enforceRateLimit(req, 'studio');
   if (limited) return limited;
@@ -23,7 +33,7 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
   }
 
   if (media.provider === 'cloudinary' && media.providerId) {
-    await cloudinary.uploader.destroy(media.providerId, { resource_type: 'auto' });
+    await deleteFromCloudinary(media.providerId, media.type);
   }
 
   if (media.provider === 'oss' && media.providerId && getOssClient()) {

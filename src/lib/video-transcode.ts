@@ -56,13 +56,29 @@ async function cleanupTemp(dir: string) {
   await fs.rm(dir, { recursive: true, force: true });
 }
 
+function toMp4Filename(originalName?: string) {
+  const parsed = path.parse(originalName ?? 'video');
+  const safeBase = (parsed.name || 'video').replace(/[^a-z0-9-_]+/gi, '-').replace(/^-+|-+$/g, '');
+  return `${safeBase || 'video'}.mp4`;
+}
+
 export async function ensureMp4H264(buffer: Buffer, originalName?: string) {
   const ffmpeg = await getFfmpeg();
+  const ext = (originalName?.split('.').pop() ?? 'mp4').toLowerCase();
+  const filename = toMp4Filename(originalName);
+
   if (!ffmpeg) {
-    throw new Error('Video conversion engine is not available');
+    if (ext === 'mp4' || ext === 'm4v') {
+      return {
+        buffer,
+        contentType: 'video/mp4',
+        filename
+      };
+    }
+
+    throw new Error('Video conversion engine is not available. Upload an MP4 video or configure ffmpeg.');
   }
 
-  const ext = (originalName?.split('.').pop() ?? 'mp4').toLowerCase();
   const { dir, inputPath } = await writeTempFile(buffer, ext);
   const outputPath = path.join(dir, 'output.mp4');
 
@@ -104,7 +120,7 @@ export async function ensureMp4H264(buffer: Buffer, originalName?: string) {
     return {
       buffer: converted,
       contentType: 'video/mp4',
-      filename: 'video.mp4'
+      filename
     };
   } finally {
     await cleanupTemp(dir);

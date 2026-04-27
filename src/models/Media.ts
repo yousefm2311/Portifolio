@@ -10,6 +10,9 @@ export interface MediaDoc {
   providerId?: string;
   url: string;
   thumbnailUrl?: string;
+  originalName?: string;
+  normalizedName?: string;
+  mimeType?: string;
   width?: number;
   height?: number;
   duration?: number;
@@ -26,6 +29,9 @@ const MediaSchema = new Schema<MediaDoc>(
     providerId: { type: String },
     url: { type: String, required: true },
     thumbnailUrl: { type: String },
+    originalName: { type: String },
+    normalizedName: { type: String, index: true },
+    mimeType: { type: String },
     width: { type: Number },
     height: { type: Number },
     duration: { type: Number },

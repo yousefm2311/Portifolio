@@ -10,7 +10,7 @@ export default function Iphone17ProMaxFrame({
   return (
     <div
       className={cn(
-        'relative mx-auto w-full max-w-[360px] origin-top scale-[0.92] sm:scale-[0.95] lg:scale-100',
+        'relative mx-auto w-full max-w-[360px]',
         className
       )}
     >
@@ -25,7 +25,7 @@ export default function Iphone17ProMaxFrame({
 
           {/* Side buttons */}
           <div className="absolute left-2 top-24 h-16 w-1.5 rounded-full bg-white/12" />
-          <div className="absolute left-2 top-46 h-9 w-1.5 rounded-full bg-white/12" />
+          <div className="absolute left-2 top-44 h-9 w-1.5 rounded-full bg-white/12" />
           <div className="absolute right-2 top-28 h-14 w-1.5 rounded-full bg-white/12" />
 
           {/* Screen */}

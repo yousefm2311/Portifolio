@@ -77,7 +77,7 @@ export const appInputSchema = z.object({
     .optional()
     .default({}),
   demo: z.object({
-    type: z.enum(['video', 'flutter_web', 'interactive_video']),
+    type: z.enum(['none', 'video', 'flutter_web', 'interactive_video']).default('none'),
     embedUrl: optionalUrl,
     videoId: z.string().optional().nullable(),
     interactiveHotspots: z.array(hotspotSchema).optional().default([])

@@ -40,7 +40,7 @@ const createDefaultState = (): AppDTO => ({
   kpis: [],
   links: {},
   demo: {
-    type: 'video',
+    type: 'none',
     embedUrl: '',
     videoId: '',
     interactiveHotspots: []
@@ -620,11 +620,13 @@ export default function AppForm({
             label="App Icon"
             value={form.media.icon ?? undefined}
             onChange={(media) => updateField('media', { ...form.media, icon: media })}
+            accept="image/*"
           />
           <MediaUploader
             label="Cover"
             value={form.media.cover ?? undefined}
             onChange={(media) => updateField('media', { ...form.media, cover: media })}
+            accept="image/*"
           />
           <div className="grid gap-3 md:grid-cols-2">
             <Select
@@ -656,6 +658,7 @@ export default function AppForm({
             label="Gallery"
             values={form.media.gallery ?? []}
             onChange={(media) => updateField('media', { ...form.media, gallery: media })}
+            accept="image/*"
           />
         </div>
       )}
@@ -663,6 +666,7 @@ export default function AppForm({
       {tab === 'demo' && (
         <div className="glass rounded-2xl p-5 space-y-4">
           <Select value={form.demo.type} onChange={(event) => updateDemo('type', event.target.value)}>
+            <option value="none">No Demo</option>
             <option value="video">Video</option>
             <option value="flutter_web">Flutter Web</option>
             <option value="interactive_video">Interactive Video</option>
@@ -686,9 +690,10 @@ export default function AppForm({
 
           {(form.demo.type === 'video' || form.demo.type === 'interactive_video') && (
             <MediaUploader
-              label="Demo Video *"
+              label="Demo Video"
               value={form.demo.video ?? undefined}
               onChange={(media) => updateDemo('video', media)}
+              accept="video/*"
             />
           )}
 

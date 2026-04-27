@@ -61,8 +61,9 @@ export default function AppPreview({ app }: { app: AppDTO }) {
 
   const rawVideoUrl = app.demo.video?.url;
   const videoUrl = withMediaProxy(rawVideoUrl);
-  const coverUrl = app.media.cover?.url;
-  const prefersPhone = app.mediaDisplay?.cover !== 'full';
+  const fallbackImage = app.media.cover ?? app.media.gallery?.[0];
+  const coverUrl = fallbackImage?.url ? withMediaProxy(fallbackImage.url) : undefined;
+  const prefersPhone = app.media.cover ? app.mediaDisplay?.cover !== 'full' : true;
   const mediaFitClass = 'object-contain';
 
   const emptyState = (

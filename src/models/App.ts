@@ -82,8 +82,8 @@ const AppSchema = new Schema(
     demo: {
       type: {
         type: String,
-        enum: ['video', 'flutter_web', 'interactive_video'],
-        required: true
+        enum: ['none', 'video', 'flutter_web', 'interactive_video'],
+        default: 'none'
       },
       embedUrl: String,
       videoId: { type: Schema.Types.ObjectId, ref: 'Media' },

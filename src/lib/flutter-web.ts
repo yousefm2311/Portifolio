@@ -51,6 +51,22 @@ function normalizeEntries(entries: IZipEntry[]) {
   return files.map((entry, index) => ({ entry, name: names[index] }));
 }
 
+function assertValidFlutterEntries(entries: { name: string }[]) {
+  const hasIndex = entries.some(({ name }) => name === 'index.html');
+  if (!hasIndex) {
+    throw new Error('The ZIP must contain a Flutter Web index.html file.');
+  }
+
+  const unsafe = entries.find(({ name }) => {
+    const parts = name.split('/');
+    return name.startsWith('/') || parts.includes('..') || parts.includes('');
+  });
+
+  if (unsafe) {
+    throw new Error(`Unsafe ZIP entry: ${unsafe.name}`);
+  }
+}
+
 function withBaseHref(html: string, baseHref: string) {
   if (html.includes('<base')) {
     return html
@@ -78,6 +94,7 @@ async function saveToLocal(file: File, slug: string) {
   await fs.mkdir(tempDir, { recursive: true });
   const buffer = Buffer.from(await file.arrayBuffer());
   const zip = new AdmZip(buffer);
+  assertValidFlutterEntries(normalizeEntries(zip.getEntries()));
   zip.extractAllTo(tempDir, true);
 
   const rootDir = await fs
@@ -119,6 +136,7 @@ export async function uploadFlutterWebZip(file: File, slug: string) {
   const buffer = Buffer.from(await file.arrayBuffer());
   const zip = new AdmZip(buffer);
   const entries = normalizeEntries(zip.getEntries());
+  assertValidFlutterEntries(entries);
 
   for (const { entry, name } of entries) {
     if (!name) continue;

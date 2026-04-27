@@ -141,4 +141,7 @@ export const translations = {
     studioMedia: 'Media',
     studioSettings: 'Settings'
   }
-} as const
+} as const;
+
+export type Locale = keyof typeof translations;
+export type TranslationKey = keyof typeof translations.en;
