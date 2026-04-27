@@ -21,7 +21,7 @@ export default function Gallery({
 
   if (!items || items.length === 0) {
     return (
-      <div className="rounded-[1.6rem] border border-dashed border-white/10 bg-white/5 p-6 text-sm text-muted">
+      <div className="rounded-card-lg border border-dashed border-white/10 bg-white/5 p-6 text-sm text-muted">
         {locale === 'ar' ? 'لا توجد لقطات شاشة متاحة حاليًا.' : 'No screenshots are available yet.'}
       </div>
     );
@@ -74,7 +74,7 @@ export default function Gallery({
 
   return (
     <div className="space-y-4 overflow-hidden">
-      <div className="flex items-center justify-between text-xs uppercase tracking-[0.2em] text-white/45">
+      <div className="flex items-center justify-between text-xs uppercase tracking-[0.2em] text-subtle">
         <span>{locale === 'ar' ? 'المعرض' : 'Gallery'}</span>
         <span>
           {index + 1} / {items.length}
@@ -82,11 +82,11 @@ export default function Gallery({
       </div>
 
       {mode === 'phone' ? (
-        <Iphone17ProMaxFrame className="max-w-[310px] scale-100 sm:max-w-[340px] sm:scale-100 lg:scale-100">
+        <Iphone17ProMaxFrame className="max-w-[310px] sm:max-w-[340px]">
           {preview}
         </Iphone17ProMaxFrame>
       ) : (
-        <div className="relative aspect-video w-full overflow-hidden rounded-[1.8rem] border border-white/10 bg-black/50">
+        <div className="relative aspect-video w-full overflow-hidden rounded-card-lg border border-white/10 bg-black/50">
           {preview}
         </div>
       )}

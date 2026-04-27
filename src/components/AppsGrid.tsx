@@ -23,7 +23,7 @@ export default function AppsGrid({
 
   if (apps.length === 0) {
     return (
-      <div className="glass-soft rounded-[1.8rem] p-8 text-center">
+      <div className="glass-soft rounded-card-lg p-8 text-center">
         <p className="text-lg font-semibold">
           {locale === 'ar' ? 'لا توجد تطبيقات مطابقة' : 'No matching apps found'}
         </p>
@@ -49,14 +49,14 @@ export default function AppsGrid({
             <Link
               key={app._id}
               href={`/app/${app.slug}`}
-              className={`group overflow-hidden rounded-[1.8rem] border border-white/10 bg-white/[0.035] transition duration-300 hover:-translate-y-1 hover:border-accent-400/50 hover:bg-white/[0.055] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 ${
+              className={`group overflow-hidden rounded-card-lg border border-white/10 bg-white/[0.035] transition duration-300 hover:-translate-y-1 hover:border-accent-400/50 hover:bg-white/[0.055] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 ${
                 featured ? 'md:col-span-2 xl:col-span-2' : ''
               }`}
             >
               <article className={`grid h-full ${featured ? 'lg:grid-cols-[0.9fr_1.1fr]' : ''}`}>
-                <div className="relative min-h-[330px] overflow-hidden bg-[radial-gradient(circle_at_50%_8%,rgba(98,220,255,0.22),transparent_38%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))]">
+                <div className="relative min-h-[320px] overflow-hidden bg-[radial-gradient(circle_at_50%_8%,rgba(98,220,255,0.22),transparent_38%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))]">
                   <div className="absolute inset-x-8 bottom-5 h-20 rounded-full bg-accent-500/15 blur-2xl transition group-hover:bg-accent-500/25" />
-                  <div className="relative mx-auto flex h-full min-h-[330px] w-full max-w-[250px] items-center justify-center p-5">
+                  <div className="relative mx-auto flex h-full min-h-[320px] w-full max-w-[250px] items-center justify-center p-5">
                     <div className="relative w-full rounded-[2.45rem] bg-gradient-to-br from-ink-700 via-ink-900 to-black p-[8px] shadow-[0_28px_80px_rgba(0,0,0,0.45)] transition duration-500 group-hover:-translate-y-2">
                       <div className="absolute left-1/2 top-4 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-black" />
                       <div className="overflow-hidden rounded-[2.05rem] border border-white/10 bg-black">
@@ -82,10 +82,10 @@ export default function AppsGrid({
 
                 <div className="flex h-full min-h-[300px] flex-col justify-between gap-5 p-5 sm:p-6">
                   <div className="flex items-start justify-between gap-4">
-                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
+                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-soft">
                       {getLocalizedCategory(app.category, locale)}
                     </span>
-                    <span className="rounded-full border border-white/10 p-2 text-white/45 transition group-hover:border-accent-400/50 group-hover:text-white">
+                    <span className="rounded-full border border-white/10 p-2 text-subtle transition group-hover:border-accent-400/50 group-hover:text-white">
                       <ArrowUpRight size={18} />
                     </span>
                   </div>
@@ -97,13 +97,13 @@ export default function AppsGrid({
 
                   <div className="grid grid-cols-2 gap-3">
                     <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
-                      <p className="text-xs uppercase tracking-[0.18em] text-white/45">
+                      <p className="text-xs uppercase tracking-[0.18em] text-subtle">
                         {locale === 'ar' ? 'الشاشات' : 'Screens'}
                       </p>
                       <p className="mt-2 text-lg font-semibold">{screenshotCount || 1}</p>
                     </div>
                     <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
-                      <p className="text-xs uppercase tracking-[0.18em] text-white/45">
+                      <p className="text-xs uppercase tracking-[0.18em] text-subtle">
                         {locale === 'ar' ? 'النوع' : 'Type'}
                       </p>
                       <p className="mt-2 truncate text-sm font-semibold">

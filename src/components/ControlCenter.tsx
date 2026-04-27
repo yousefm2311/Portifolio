@@ -46,11 +46,11 @@ export default function ControlCenter() {
         {open && (
           <motion.div
             ref={panelRef}
-            className="glass absolute bottom-16 right-0 w-[300px] rounded-[1.8rem] border border-white/10 p-4 shadow-card"
+            className="glass absolute bottom-16 right-0 w-[calc(100vw-3rem)] max-w-[300px] rounded-card-lg border border-white/10 p-4 shadow-card"
             initial={{ opacity: 0, y: 10, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.98 }}
-            transition={{ duration: 0.18, ease: 'easeOut' }}
+            transition={{ duration: 0.28, ease: 'easeOut' }}
           >
             <div className="mb-4 flex items-center justify-between">
               <div>
@@ -68,7 +68,7 @@ export default function ControlCenter() {
 
             <div className="space-y-4">
               <div className="space-y-3">
-                <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/55">
+                <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-subtle">
                   <Palette size={14} />
                   <span>{locale === 'ar' ? 'الثيمات' : 'Themes'}</span>
                 </div>
@@ -79,9 +79,9 @@ export default function ControlCenter() {
                       onClick={() => setTheme(item.id)}
                       className={cn(
                         'flex items-center gap-3 rounded-2xl border px-3 py-3 text-left text-sm transition',
-                        theme === item.id
+                      theme === item.id
                           ? 'border-accent-400 bg-white/10 text-white'
-                          : 'border-white/10 text-white/70 hover:border-white/30'
+                          : 'border-white/10 text-soft hover:border-white/30'
                       )}
                     >
                       <span className="h-8 w-8 rounded-xl" style={{ background: item.swatch }} />
@@ -92,7 +92,7 @@ export default function ControlCenter() {
               </div>
 
               <div className="space-y-3">
-                <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/55">
+                <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-subtle">
                   <Globe2 size={14} />
                   <span>{locale === 'ar' ? 'اللغة' : 'Language'}</span>
                 </div>
@@ -103,7 +103,7 @@ export default function ControlCenter() {
                       'rounded-2xl border px-3 py-2.5 text-sm transition',
                       locale === 'ar'
                         ? 'border-accent-400 bg-white/10 text-white'
-                        : 'border-white/10 text-white/70 hover:border-white/30'
+                        : 'border-white/10 text-soft hover:border-white/30'
                     )}
                   >
                     العربية
@@ -114,7 +114,7 @@ export default function ControlCenter() {
                       'rounded-2xl border px-3 py-2.5 text-sm transition',
                       locale === 'en'
                         ? 'border-accent-400 bg-white/10 text-white'
-                        : 'border-white/10 text-white/70 hover:border-white/30'
+                        : 'border-white/10 text-soft hover:border-white/30'
                     )}
                   >
                     English

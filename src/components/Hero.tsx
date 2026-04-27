@@ -56,7 +56,7 @@ export default function Hero({
 
       <div className="relative z-10 grid gap-10 xl:grid-cols-[1.14fr_0.86fr]">
         <div className="space-y-7">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/65">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-soft">
             <span className="h-2 w-2 rounded-full bg-accent-400" />
             {locale === 'ar'
               ? 'واجهة أخف وأهدى لعرض الشغل بشكل أفضل'
@@ -76,7 +76,7 @@ export default function Hero({
             {resolvedBadges.slice(0, 4).map((badge) => (
               <span
                 key={badge}
-                className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs uppercase tracking-[0.16em] text-white/70"
+                className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs uppercase tracking-[0.16em] text-soft"
               >
                 {badge}
               </span>
@@ -101,7 +101,7 @@ export default function Hero({
         <div className="section-shell p-6 sm:p-7">
           <div className="relative z-10 space-y-6">
             <div className="space-y-2">
-              <p className="text-xs uppercase tracking-[0.22em] text-white/45">
+              <p className="text-xs uppercase tracking-[0.22em] text-subtle">
                 {locale === 'ar' ? 'ملخص التجربة' : 'Experience summary'}
               </p>
               <h2 className="text-2xl font-semibold tracking-tight">
@@ -113,21 +113,21 @@ export default function Hero({
               {notes.map((note, index) => (
                 <div
                   key={note}
-                  className="flex items-start gap-4 rounded-[1.5rem] border border-white/10 bg-black/10 px-4 py-4"
+                  className="flex items-start gap-4 rounded-card border border-white/10 bg-black/10 px-4 py-4"
                 >
-                  <span className="mt-0.5 text-xs uppercase tracking-[0.2em] text-white/35">
+                  <span className="mt-0.5 text-xs uppercase tracking-[0.2em] text-faint">
                     {String(index + 1).padStart(2, '0')}
                   </span>
-                  <p className="text-sm leading-7 text-white/78">{note}</p>
+                  <p className="text-sm leading-7 text-soft">{note}</p>
                 </div>
               ))}
             </div>
 
             <div className="grid gap-3 sm:grid-cols-3">
               {metrics.map((item) => (
-                <div key={item.label} className="rounded-[1.4rem] border border-white/10 bg-white/5 p-4">
+                <div key={item.label} className="rounded-card-sm border border-white/10 bg-white/5 p-4">
                   <p className="text-lg font-semibold">{item.value}</p>
-                  <p className="mt-2 text-xs uppercase tracking-[0.18em] text-white/45">{item.label}</p>
+                  <p className="mt-2 text-xs uppercase tracking-[0.18em] text-subtle">{item.label}</p>
                 </div>
               ))}
             </div>

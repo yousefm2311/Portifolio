@@ -40,7 +40,11 @@ const config: Config = {
       borderRadius: {
         xl: '1rem',
         '2xl': '1.5rem',
-        '3xl': '2rem'
+        '3xl': '2rem',
+        'card-sm': '1.25rem',
+        'card': '1.5rem',
+        'card-lg': '1.75rem',
+        'shell': '2rem'
       }
     }
   },
