@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    proxyClientMaxBodySize: '500mb',
+  },
   images: {
     unoptimized: true,
     remotePatterns: [
