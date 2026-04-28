@@ -76,16 +76,16 @@ export default function CapabilitiesSection({
 
   return (
     <section className="section-shell p-6 py-10 sm:p-8 sm:py-12">
-      <div className="relative z-10 grid gap-8 lg:grid-cols-[0.88fr_1.12fr]">
-        <div className="space-y-4">
-          <p className="text-xs uppercase tracking-[0.24em] text-white/55">{resolvedIntro.eyebrow}</p>
-          <h2 className="text-3xl font-semibold tracking-tight">{resolvedIntro.title}</h2>
-          <p className="text-sm leading-8 text-muted">{resolvedIntro.subtitle}</p>
-          <div className="grid gap-3">
-            <div className="rounded-[1.5rem] border border-white/10 bg-white/5 px-4 py-4 text-sm leading-7 text-white/75">
+      <div className="relative z-10 grid gap-12 lg:grid-cols-2 items-center">
+        <div className="space-y-6">
+          <p className="text-sm font-semibold text-accent-500">{resolvedIntro.eyebrow}</p>
+          <h2 className="text-3xl lg:text-4xl font-bold">{resolvedIntro.title}</h2>
+          <p className="text-base leading-relaxed text-muted">{resolvedIntro.subtitle}</p>
+          <div className="grid gap-4">
+            <div className="rounded-2xl border border-white/5 bg-black/20 px-5 py-4 text-sm leading-relaxed text-white/80">
               {resolvedNotes.noteA}
             </div>
-            <div className="rounded-[1.5rem] border border-white/10 bg-white/5 px-4 py-4 text-sm leading-7 text-white/75">
+            <div className="rounded-2xl border border-white/5 bg-black/20 px-5 py-4 text-sm leading-relaxed text-white/80">
               {resolvedNotes.noteB}
             </div>
           </div>
@@ -96,16 +96,16 @@ export default function CapabilitiesSection({
             const Icon = item.icon ? iconMap[item.icon] ?? icons[index % icons.length] : icons[index % icons.length];
             const mediaUrl = item.media?.url;
             return (
-              <div key={`${item.title}-${index}`} className="glass-soft rounded-[1.7rem] p-5">
-                <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl bg-white/5 text-accent-300">
+              <div key={`${item.title}-${index}`} className="rounded-2xl border border-white/5 bg-white/5 p-6 hover:bg-white/10 transition">
+                <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl bg-white/10 text-accent-400">
                   {mediaUrl ? (
-                    <Image src={mediaUrl} alt={item.title} width={44} height={44} className="object-cover" />
+                    <Image src={mediaUrl} alt={item.title} width={48} height={48} className="object-cover" />
                   ) : (
-                    <Icon size={20} />
+                    <Icon size={24} />
                   )}
                 </div>
-                <h3 className="mt-4 text-lg font-semibold">{item.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-muted">{item.desc}</p>
+                <h3 className="mt-5 text-lg font-bold">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{item.desc}</p>
               </div>
             );
           })}

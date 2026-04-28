@@ -22,14 +22,14 @@ export default function FeaturedApps({ apps }: { apps: AppDTO[] }) {
   return (
     <section className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
-        <div className="space-y-2">
-          <p className="text-xs uppercase tracking-[0.24em] text-white/50">
+        <div className="space-y-3">
+          <p className="text-sm font-semibold text-accent-500">
             {locale === 'ar' ? 'مختارات' : 'Featured'}
           </p>
-          <h2 className="text-3xl font-semibold tracking-tight">
+          <h2 className="text-3xl lg:text-4xl font-bold">
             {locale === 'ar' ? 'ابدأ بهذه المشاريع' : 'Start with these projects'}
           </h2>
-          <p className="max-w-2xl text-sm leading-7 text-muted">
+          <p className="max-w-xl text-base leading-relaxed text-muted">
             {locale === 'ar'
               ? 'مجموعة صغيرة مختارة تشرح شكل العرض الجديد وتفتح الطريق لباقي الأعمال.'
               : 'A small curated set that quickly explains the new presentation style before the rest of the work.'}
@@ -44,10 +44,10 @@ export default function FeaturedApps({ apps }: { apps: AppDTO[] }) {
         </Link>
       </div>
 
-      <div className="grid gap-4 xl:grid-cols-[1.2fr_0.8fr]">
+      <div className="grid gap-6 lg:grid-cols-2">
         <Link
           href={`/app/${lead.slug}`}
-          className="group overflow-hidden rounded-[2rem] border border-white/10 bg-black/10 transition hover:-translate-y-1 hover:border-white/20"
+          className="group overflow-hidden rounded-2xl border border-white/5 bg-black/20 transition hover:-translate-y-1 hover:border-white/10"
         >
           <div className="relative min-h-[320px]">
             {lead.media.cover?.url ? (
@@ -62,13 +62,13 @@ export default function FeaturedApps({ apps }: { apps: AppDTO[] }) {
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/82 via-black/24 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
-              <span className="rounded-full border border-white/10 bg-black/30 px-3 py-1 text-xs text-white/75">
+              <span className="rounded-full border border-white/10 bg-black/40 px-3 py-1 text-xs font-semibold text-white/90">
                 {getLocalizedCategory(lead.category, locale)}
               </span>
-              <h3 className="mt-4 text-3xl font-semibold tracking-tight">
+              <h3 className="mt-4 text-3xl font-bold tracking-tight text-white">
                 {getLocalizedAppTitle(lead, locale)}
               </h3>
-              <p className="mt-3 max-w-xl text-sm leading-7 text-white/72">
+              <p className="mt-2 max-w-lg text-sm leading-relaxed text-white/80">
                 {getLocalizedAppSummary(lead, locale)}
               </p>
             </div>
@@ -80,23 +80,23 @@ export default function FeaturedApps({ apps }: { apps: AppDTO[] }) {
             <Link
               key={app._id}
               href={`/app/${app.slug}`}
-              className="glass-soft group rounded-[1.8rem] p-5 transition hover:-translate-y-1 hover:border-white/20"
+              className="group rounded-2xl border border-white/5 bg-white/5 p-6 transition hover:bg-white/10 hover:border-white/10"
             >
               <div className="flex items-start justify-between gap-4">
-                <div className="space-y-3">
-                  <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
+                <div className="space-y-2">
+                  <span className="rounded-full bg-accent-500/20 px-3 py-1 text-xs font-semibold text-accent-300">
                     {getLocalizedCategory(app.category, locale)}
                   </span>
-                  <h3 className="text-xl font-semibold tracking-tight">
+                  <h3 className="mt-3 text-xl font-bold text-white">
                     {getLocalizedAppTitle(app, locale)}
                   </h3>
-                  <p className="text-sm leading-7 text-muted">
+                  <p className="text-sm leading-relaxed text-muted line-clamp-2 mt-2">
                     {getLocalizedAppSummary(app, locale)}
                   </p>
                 </div>
                 <ArrowUpRight
-                  size={18}
-                  className="shrink-0 text-white/40 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white"
+                  size={20}
+                  className="shrink-0 text-white/40 transition group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-accent-400"
                 />
               </div>
             </Link>

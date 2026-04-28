@@ -31,7 +31,7 @@ export default function SiteHeader({
               <Link href="/" className="text-lg font-semibold tracking-wide">
                 Yousef<span className="text-accent-400">.dev</span>
               </Link>
-              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-white/55 sm:hidden">
+              <span className="rounded-full border border-white/5 bg-white/5 px-3 py-1 text-xs font-medium text-white/60 sm:hidden">
                 {locale === 'ar' ? 'واجهة عرض' : 'Showcase'}
               </span>
             </div>

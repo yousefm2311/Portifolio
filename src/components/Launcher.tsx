@@ -81,13 +81,13 @@ export default function Launcher({
         ];
 
   return (
-    <section className="section-shell p-6 sm:p-8">
-      <div className="relative z-10 grid gap-8 xl:grid-cols-[0.76fr_1.24fr]">
-        <div className="space-y-5">
-          <div className="space-y-3">
-            <p className="text-xs uppercase tracking-[0.24em] text-subtle">{t('launcherTitle')}</p>
-            <h2 className="text-3xl font-semibold tracking-tight">{t('launcherSubtitle')}</h2>
-            <p className="text-sm leading-7 text-muted">
+    <section className="section-shell p-6 sm:p-10">
+      <div className="relative z-10 grid gap-12 lg:grid-cols-12">
+        <div className="space-y-8 lg:col-span-5">
+          <div className="space-y-4">
+            <p className="text-sm font-medium text-accent-500">{t('launcherTitle')}</p>
+            <h2 className="text-3xl lg:text-4xl font-bold">{t('launcherSubtitle')}</h2>
+            <p className="text-base leading-relaxed text-muted">
               {locale === 'ar'
                 ? 'هذه هي منطقة الإبهار الأساسية في المشروع: اختيار تطبيق، معاينته داخل الهاتف، ثم الغوص في تفاصيله بدون زحمة بصرية.'
                 : 'This is the main wow-factor area: pick an app, preview it inside the phone, then dive into the details without visual clutter.'}
@@ -102,25 +102,25 @@ export default function Launcher({
                   key={app._id}
                   type="button"
                   onClick={() => setActiveId(app._id)}
-                  className={`rounded-card-lg border px-4 py-4 text-start transition ${
+                  className={`rounded-xl border px-4 py-4 text-start transition ${
                     active
-                      ? 'border-accent-400/50 bg-white/10 shadow-glow'
-                      : 'border-white/10 bg-white/5 hover:border-white/25 hover:bg-white/8'
+                      ? 'border-accent-400 bg-white/10 shadow-sm'
+                      : 'border-white/5 bg-white/5 hover:border-white/20 hover:bg-white/10'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-4">
-                    <div className="space-y-2">
-                      <p className="text-xs uppercase tracking-[0.22em] text-subtle">
+                    <div className="space-y-1">
+                      <p className="text-xs font-semibold text-accent-300">
                         {String(index + 1).padStart(2, '0')}
                       </p>
-                      <h3 className="text-lg font-semibold">
+                      <h3 className="text-lg font-bold">
                         {getLocalizedAppTitle(app, locale)}
                       </h3>
-                      <p className="text-sm leading-7 text-muted">
+                      <p className="text-sm leading-relaxed text-muted line-clamp-1">
                         {getLocalizedAppSummary(app, locale)}
                       </p>
                     </div>
-                    <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-soft">
+                    <span className="shrink-0 rounded-full bg-white/10 px-3 py-1 text-xs text-soft">
                       {getLocalizedCategory(app.category, locale)}
                     </span>
                   </div>
@@ -129,18 +129,18 @@ export default function Launcher({
             })}
           </div>
 
-          <div className="grid gap-3">
+          <div className="grid gap-4">
             {insightCards.map((item) => {
               const Icon = item.icon;
               return (
-                <div key={item.title} className="glass-soft rounded-card-sm p-4">
-                  <div className="flex items-start gap-3">
-                    <div className="mt-1 flex h-10 w-10 items-center justify-center rounded-2xl bg-white/5 text-accent-300">
+                <div key={item.title} className="rounded-xl border border-white/5 bg-black/20 p-4">
+                  <div className="flex items-start gap-4">
+                    <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-accent-300">
                       <Icon size={18} />
                     </div>
                     <div>
-                      <p className="font-semibold">{item.title}</p>
-                      <p className="mt-1 text-sm leading-7 text-muted">{item.desc}</p>
+                      <p className="font-bold text-base">{item.title}</p>
+                      <p className="mt-1 text-sm leading-relaxed text-muted">{item.desc}</p>
                     </div>
                   </div>
                 </div>
@@ -149,51 +149,51 @@ export default function Launcher({
           </div>
         </div>
 
-        <div className="space-y-4">
-          <div className="glass rounded-card-lg p-4 sm:p-5">
+        <div className="flex flex-col space-y-6 lg:col-span-7">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="space-y-2">
-                <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-soft">
+                <span className="rounded-full bg-accent-500/20 px-3 py-1 text-xs font-semibold text-accent-300">
                   {getLocalizedCategory(activeApp.category, locale)}
                 </span>
-                <h3 className="text-2xl font-semibold tracking-tight">
+                <h3 className="text-2xl font-bold">
                   {getLocalizedAppTitle(activeApp, locale)}
                 </h3>
-                <p className="max-w-2xl text-sm leading-7 text-muted">
+                <p className="max-w-xl text-sm leading-relaxed text-muted">
                   {getLocalizedAppSummary(activeApp, locale)}
                 </p>
               </div>
-              <Button onClick={() => setSelected(activeApp)}>
+              <Button onClick={() => setSelected(activeApp)} variant="primary">
                 {t('viewDetails')}
                 <ArrowUpRight className="ml-2" size={16} />
               </Button>
             </div>
           </div>
 
-          <div className="grid gap-4 2xl:grid-cols-[0.72fr_0.28fr]">
-            <div className="glass-soft rounded-shell p-4 sm:p-6">
+          <div className="grid gap-6 2xl:grid-cols-[2fr_1fr]">
+            <div className="rounded-2xl border border-white/5 bg-black/20 p-6 flex justify-center items-center">
               <AppPreview app={activeApp} />
             </div>
 
-            <div className="space-y-4">
-              <div className="glass-soft rounded-card-lg p-5">
-                <p className="text-xs uppercase tracking-[0.24em] text-subtle">
+            <div className="space-y-6">
+              <div className="rounded-2xl border border-white/5 bg-white/5 p-5">
+                <p className="text-sm font-semibold text-accent-500 mb-4">
                   {locale === 'ar' ? 'لمحة سريعة' : 'Quick glance'}
                 </p>
-                <div className="mt-4 grid gap-3">
-                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <p className="text-xs uppercase tracking-[0.2em] text-subtle">
+                <div className="grid gap-4">
+                  <div className="rounded-xl bg-black/20 p-4 border border-white/5">
+                    <p className="text-xs text-soft mb-2">
                       {locale === 'ar' ? 'التقنيات' : 'Stack'}
                     </p>
-                    <p className="mt-2 text-sm text-body">
+                    <p className="text-sm font-semibold">
                       {(activeApp.techStack ?? []).slice(0, 3).join(' • ') || 'Flutter • Next.js • APIs'}
                     </p>
                   </div>
-                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <p className="text-xs uppercase tracking-[0.2em] text-subtle">
+                  <div className="rounded-xl bg-black/20 p-4 border border-white/5">
+                    <p className="text-xs text-soft mb-2">
                       {locale === 'ar' ? 'الميزات' : 'Highlights'}
                     </p>
-                      <p className="mt-2 text-sm text-body">
+                    <p className="text-sm font-semibold">
                       {activeFeatures.slice(0, 2).map((item) => item.title).join(' • ') ||
                         (locale === 'ar' ? 'واجهات واضحة وتجربة مستقرة' : 'Clear UI and reliable product flow')}
                     </p>
@@ -201,11 +201,11 @@ export default function Launcher({
                 </div>
               </div>
 
-              <div className="glass-soft rounded-card-lg p-5">
-                <p className="text-xs uppercase tracking-[0.24em] text-subtle">
+              <div className="rounded-2xl border border-white/5 bg-white/5 p-5">
+                <p className="text-sm font-semibold text-accent-500 mb-4">
                   {locale === 'ar' ? 'شبكة التطبيقات' : 'App dock'}
                 </p>
-                <div className="mt-4 grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-3 gap-3">
                   {apps.map((app) => (
                     <AppIcon
                       key={app._id}

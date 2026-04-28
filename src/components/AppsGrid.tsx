@@ -23,11 +23,11 @@ export default function AppsGrid({
 
   if (apps.length === 0) {
     return (
-      <div className="glass-soft rounded-card-lg p-8 text-center">
-        <p className="text-lg font-semibold">
+      <div className="rounded-2xl border border-white/5 bg-white/5 p-10 text-center">
+        <p className="text-xl font-bold">
           {locale === 'ar' ? 'لا توجد تطبيقات مطابقة' : 'No matching apps found'}
         </p>
-        <p className="mt-2 text-sm text-muted">
+        <p className="mt-3 text-base text-muted">
           {locale === 'ar'
             ? 'غيّر الفلاتر أو ابحث بكلمات مختلفة لعرض مشاريع أخرى.'
             : 'Adjust the filters or try a different keyword to reveal more work.'}
@@ -49,13 +49,13 @@ export default function AppsGrid({
             <Link
               key={app._id}
               href={`/app/${app.slug}`}
-              className={`group overflow-hidden rounded-card-lg border border-white/10 bg-white/[0.035] transition duration-300 hover:-translate-y-1 hover:border-accent-400/50 hover:bg-white/[0.055] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 ${
+              className={`group overflow-hidden rounded-2xl border border-white/5 bg-black/20 transition duration-300 hover:-translate-y-1 hover:border-white/10 hover:bg-black/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-400 ${
                 featured ? 'md:col-span-2 xl:col-span-2' : ''
               }`}
             >
               <article className={`grid h-full ${featured ? 'lg:grid-cols-[0.9fr_1.1fr]' : ''}`}>
-                <div className="relative min-h-[320px] overflow-hidden bg-[radial-gradient(circle_at_50%_8%,rgba(98,220,255,0.22),transparent_38%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))]">
-                  <div className="absolute inset-x-8 bottom-5 h-20 rounded-full bg-accent-500/15 blur-2xl transition group-hover:bg-accent-500/25" />
+                <div className="relative min-h-[320px] overflow-hidden bg-white/5">
+                  <div className="absolute inset-x-8 bottom-5 h-20 rounded-full bg-accent-500/10 blur-2xl transition group-hover:bg-accent-500/20" />
                   <div className="relative mx-auto flex h-full min-h-[320px] w-full max-w-[250px] items-center justify-center p-5">
                     <div className="relative w-full rounded-[2.45rem] bg-gradient-to-br from-ink-700 via-ink-900 to-black p-[8px] shadow-[0_28px_80px_rgba(0,0,0,0.45)] transition duration-500 group-hover:-translate-y-2">
                       <div className="absolute left-1/2 top-4 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-black" />
@@ -96,17 +96,17 @@ export default function AppsGrid({
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
-                      <p className="text-xs uppercase tracking-[0.18em] text-subtle">
+                    <div className="rounded-xl border border-white/5 bg-white/5 p-4">
+                      <p className="text-xs font-semibold text-accent-500/80 mb-2">
                         {locale === 'ar' ? 'الشاشات' : 'Screens'}
                       </p>
-                      <p className="mt-2 text-lg font-semibold">{screenshotCount || 1}</p>
+                      <p className="text-lg font-bold">{screenshotCount || 1}</p>
                     </div>
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
-                      <p className="text-xs uppercase tracking-[0.18em] text-subtle">
+                    <div className="rounded-xl border border-white/5 bg-white/5 p-4">
+                      <p className="text-xs font-semibold text-accent-500/80 mb-2">
                         {locale === 'ar' ? 'النوع' : 'Type'}
                       </p>
-                      <p className="mt-2 truncate text-sm font-semibold">
+                      <p className="truncate text-sm font-bold">
                         {getLocalizedCategory(app.category, locale)}
                       </p>
                     </div>
@@ -125,7 +125,7 @@ export default function AppsGrid({
                     </div>
                   )}
 
-                  <span className="inline-flex w-fit items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition group-hover:border-accent-400/50 group-hover:bg-accent-400/10">
+                  <span className="inline-flex w-fit items-center gap-2 rounded-xl border border-white/5 bg-white/10 px-5 py-2 text-sm font-bold text-white transition group-hover:bg-white/20">
                     {t('viewDetails')}
                     <ArrowUpRight size={16} />
                   </span>

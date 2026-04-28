@@ -23,12 +23,12 @@ export default function TimelineSection({ items }: { items?: LocalizedTimeline |
       <div className="relative z-10 space-y-8">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="text-xs uppercase tracking-[0.24em] text-white/55">
+            <p className="text-sm font-semibold text-accent-500">
               {locale === 'ar' ? 'المسار' : 'Journey'}
             </p>
-            <h2 className="mt-2 text-3xl font-semibold tracking-tight">{t('timelineTitle')}</h2>
+            <h2 className="mt-2 text-3xl lg:text-4xl font-bold">{t('timelineTitle')}</h2>
           </div>
-          <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-white/70">
+          <div className="rounded-xl border border-white/5 bg-black/20 px-4 py-2 text-sm font-semibold text-white/80">
             {range}
           </div>
         </div>
