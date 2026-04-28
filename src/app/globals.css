@@ -3,28 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --bg-0: 4 10 22;
-  --bg-1: 8 16 34;
-  --bg-2: 10 20 42;
-  --ink-900: 7 14 30;
-  --ink-800: 10 22 46;
-  --ink-700: 18 34 68;
-  --ink-100: 228 238 255;
-  --surface-900: 8 16 32;
-  --surface-800: 12 22 44;
-  --surface-700: 22 38 74;
-  --surface-100: 238 244 255;
-  --accent-500: 43 197 255;
-  --accent-400: 98 220 255;
-  --accent-300: 160 236 255;
-  --text-high: 236 246 255;
-  --text-low: 150 173 204;
-  --card: 10 18 36;
-  --border: 84 130 205;
-  --shadow: 3 10 26;
-  --grid: 255 255 255;
-  --glow-1: 45 200 255;
-  --glow-2: 82 145 255;
+  --bg-0: 24 24 27; /* #18181B */
+  --bg-1: 39 39 42; /* #27272A */
+  --text-high: 250 250 250;
+  --text-low: 161 161 170;
+  --card: 39 39 42;
+  --border: 63 63 70;
+  --shadow: 0 0 0;
   color-scheme: dark;
 }
 
@@ -172,18 +157,9 @@ body {
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
-  background-color: rgb(var(--bg-0));
+  background-color: #18181b;
   color: rgb(var(--text-high));
   font-family: var(--font-sans), var(--font-ar);
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at 50% 0%, rgb(var(--glow-1) / 0.05), transparent 70%);
-  pointer-events: none;
-  z-index: -1;
 }
 
 html[lang='ar'] body {

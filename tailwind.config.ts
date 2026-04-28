@@ -12,21 +12,21 @@ const config: Config = {
     extend: {
       colors: {
         ink: {
-          900: 'rgb(var(--ink-900) / <alpha-value>)',
-          800: 'rgb(var(--ink-800) / <alpha-value>)',
-          700: 'rgb(var(--ink-700) / <alpha-value>)',
-          100: 'rgb(var(--ink-100) / <alpha-value>)'
+          900: '#111111',
+          800: '#1A1A1A',
+          700: '#222222',
+          100: '#EEEEEE'
         },
         accent: {
-          500: 'rgb(var(--accent-500) / <alpha-value>)',
-          400: 'rgb(var(--accent-400) / <alpha-value>)',
-          300: 'rgb(var(--accent-300) / <alpha-value>)'
+          500: '#FF7B00',
+          400: '#FF8F22',
+          300: '#FFA444'
         },
         surface: {
-          900: 'rgb(var(--surface-900) / <alpha-value>)',
-          800: 'rgb(var(--surface-800) / <alpha-value>)',
-          700: 'rgb(var(--surface-700) / <alpha-value>)',
-          100: 'rgb(var(--surface-100) / <alpha-value>)'
+          900: '#131313',
+          800: '#1A1A1A',
+          700: '#2A2A2A',
+          100: '#FAFAFA'
         }
       },
       fontFamily: {
