@@ -34,11 +34,15 @@ export default function Providers({
       <ThemeProvider initialTheme={initialTheme}>
         <LocaleProvider initialLocale={initialLocale}>
           {!hideShell ? (
-            <div className="flex h-screen w-full overflow-hidden bg-[#18181b] text-white">
-              <Sidebar />
-              <div className="flex flex-1 flex-col overflow-hidden">
-                <Topbar />
-                <main className="flex-1 overflow-x-hidden overflow-y-auto bg-[#18181b]">
+            <div className="flex min-h-screen w-full bg-[#18181b] text-white">
+              <div className="sticky top-0 h-screen shrink-0">
+                <Sidebar />
+              </div>
+              <div className="flex min-w-0 flex-1 flex-col">
+                <div className="sticky top-0 z-50">
+                  <Topbar />
+                </div>
+                <main className="flex-1 bg-[#18181b]">
                   <PageTransition>{children}</PageTransition>
                 </main>
               </div>

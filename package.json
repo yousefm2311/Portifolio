@@ -32,6 +32,7 @@
     "react": "latest",
     "react-dom": "latest",
     "react-markdown": "^9.0.1",
+    "recharts": "^3.8.1",
     "remark-gfm": "^4.0.0",
     "sanitize-html": "^2.13.0",
     "tailwind-merge": "^2.5.2",

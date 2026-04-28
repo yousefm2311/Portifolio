@@ -29,12 +29,18 @@ export default function Topbar() {
         </div>
         
         <div className="flex items-center gap-3 border-l border-white/10 pl-4">
-          <button className="flex h-8 w-8 items-center justify-center rounded-full bg-white/5 text-white/60 hover:bg-white/10 hover:text-white transition">
+          <button 
+            onClick={() => alert(locale === 'ar' ? 'لا توجد إشعارات جديدة.' : 'No new notifications.')}
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-white/5 text-white/60 transition hover:bg-white/10 hover:text-white"
+          >
             <Bell size={16} />
           </button>
-          <button className="flex h-8 w-8 items-center justify-center rounded-full bg-white/5 text-white/60 hover:bg-white/10 hover:text-white transition">
+          <a 
+            href="mailto:contact@yousef.dev"
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-white/5 text-white/60 transition hover:bg-white/10 hover:text-white"
+          >
             <Mail size={16} />
-          </button>
+          </a>
           <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-accent-500/20 text-accent-500">
             <User size={16} />
           </div>

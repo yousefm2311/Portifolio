@@ -4,6 +4,23 @@ import { AppDTO } from '@/lib/types';
 import { useLocale } from '@/components/LocaleProvider';
 import { getLocalizedAppTitle, getLocalizedCategory } from '@/lib/app-presentation';
 import Link from 'next/link';
+import { BarChart, Bar, Cell, XAxis, Tooltip, ResponsiveContainer } from 'recharts';
+
+const trendData = Array.from({ length: 30 }).map((_, i) => ({
+  name: `Day ${i + 1}`,
+  activity: Math.floor(Math.random() * 80) + 10,
+  commits: Math.floor(Math.random() * 40) + 5
+}));
+
+const techData = [
+  { name: 'React', value: 85 },
+  { name: 'Next.js', value: 90 },
+  { name: 'Node.js', value: 70 },
+  { name: 'Flutter', value: 60 },
+  { name: 'TypeScript', value: 95 },
+  { name: 'MongoDB', value: 65 },
+  { name: 'AWS', value: 50 },
+];
 
 export default function DashboardOverview({ apps }: { apps: AppDTO[] }) {
   const { locale } = useLocale();
@@ -69,20 +86,17 @@ export default function DashboardOverview({ apps }: { apps: AppDTO[] }) {
               <span className="text-white/40">{locale === 'ar' ? 'سنوي' : 'Yearly'}</span>
             </div>
           </div>
-          <div className="mt-6 flex h-64 items-end gap-1 px-2">
-            {/* Mock complex chart from screenshot */}
-            {Array.from({ length: 30 }).map((_, i) => (
-              <div key={i} className="flex h-full flex-1 flex-col justify-end gap-1">
-                <div
-                  className="w-full rounded-sm bg-accent-500/40"
-                  style={{ height: `${Math.max(10, Math.random() * 80)}%` }}
+          <div className="mt-6 h-64 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={trendData} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
+                <Tooltip 
+                  cursor={{ fill: 'rgba(255, 255, 255, 0.05)' }}
+                  contentStyle={{ backgroundColor: '#131313', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
                 />
-                <div
-                  className="w-full rounded-sm bg-accent-500 text-transparent"
-                  style={{ height: `${Math.max(5, Math.random() * 30)}%` }}
-                >.</div>
-              </div>
-            ))}
+                <Bar dataKey="activity" stackId="a" fill="rgba(255, 123, 0, 0.4)" radius={[0, 0, 4, 4]} />
+                <Bar dataKey="commits" stackId="a" fill="#FF7B00" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
 
@@ -90,10 +104,21 @@ export default function DashboardOverview({ apps }: { apps: AppDTO[] }) {
           <h3 className="text-sm font-bold tracking-wider text-white/50 uppercase">
             {locale === 'ar' ? 'توزيع التقنيات' : 'TECH BREAKDOWN'}
           </h3>
-          <div className="mt-8 flex h-52 items-end justify-between gap-2">
-            {[40, 70, 45, 90, 60, 30, 80, 50, 65, 35].map((val, i) => (
-              <div key={i} className="w-full rounded-t-sm bg-accent-500 hover:bg-accent-400 transition" style={{ height: `${val}%` }} />
-            ))}
+          <div className="mt-8 h-52 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={techData} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
+                <XAxis dataKey="name" tick={{ fill: 'rgba(255,255,255,0.4)', fontSize: 10 }} axisLine={false} tickLine={false} />
+                <Tooltip 
+                  cursor={{ fill: 'rgba(255, 255, 255, 0.05)' }}
+                  contentStyle={{ backgroundColor: '#131313', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
+                />
+                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                  {techData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={index === 1 || index === 4 ? '#FF7B00' : 'rgba(255, 123, 0, 0.4)'} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
       </div>
