@@ -30,7 +30,7 @@ export default function DashboardOverview({ apps }: { apps: AppDTO[] }) {
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold text-white">
-          {locale === 'ar' ? 'مرحباً بعودتك، يوسف' : 'Welcome back, Yousef'}
+          {/* {locale === 'ar' ? 'مرحباً بعودتك، يوسف' : 'Welcome back, Yousef'} */}
         </h1>
         <div className="flex items-center gap-3">
           <div className="flex items-center rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/80">
